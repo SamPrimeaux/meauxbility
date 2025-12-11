@@ -137,12 +137,15 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
                 }
                 .nav-logo img {
                     height: 66px !important;
-                    width: auto !important;
-                    display: block;
+                    width: 264px !important;
+                    max-width: none !important;
+                    display: block !important;
                     transition: height 0.3s ease;
+                    object-fit: contain;
                 }
                 .nav.scrolled .nav-logo img {
                     height: 57px !important;
+                    width: 228px !important;
                 }
 
                 .desktop-nav {
