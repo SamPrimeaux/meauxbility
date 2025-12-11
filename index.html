@@ -1,20 +1,845 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meauxbility - Empowering Movement</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@900&display=swap"
-    rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meauxbility - Empowering Mobility & Accessibility</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+<style>
+
+/* ===================================
+   DESIGN SYSTEM VARIABLES
+   =================================== */
+:root {
+  --teal: #0a9396;
+  --teal-dark: #005f73;
+  --cyan: #00d4d4;
+  --mint: #4ee9e4;
+  --nav-height: 80px;
+  --nav-height-scrolled: 68px;
+  --max-width: 1400px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --z-nav: 10000;
+  --z-sidenav: 10002;
+  --z-overlay: 10001;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --bg: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.95);
+  --nav-border: rgba(10, 147, 150, 0.12);
+  --nav-shadow: 0 2px 20px rgba(10, 147, 150, 0.08);
+  --nav-text: #0a2428;
+  --nav-link: #0a9396;
+  --nav-hover: #005f73;
+  --nav-hover-bg: rgba(10, 147, 150, 0.08);
+  --sidenav-bg: rgba(255, 255, 255, 0.98);
+  --sidenav-overlay: rgba(0, 0, 0, 0.4);
+  --section-bg: #f8fafb;
+  --section-border: rgba(10, 147, 150, 0.08);
+  --text: #0a2428;
+  --text-muted: #517174;
+  --burger-color: #0a9396;
+  --cta-bg: #0a9396;
+  --cta-hover: #005f73;
+  --cta-text: #ffffff;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg: #0a1a1c;
+  --nav-bg: rgba(10, 26, 28, 0.85);
+  --nav-bg-scrolled: rgba(10, 26, 28, 0.95);
+  --nav-border: rgba(78, 233, 228, 0.15);
+  --nav-shadow: 0 2px 20px rgba(78, 233, 228, 0.1);
+  --nav-text: #e8f4f5;
+  --nav-link: #4ee9e4;
+  --nav-hover: #00d4d4;
+  --nav-hover-bg: rgba(78, 233, 228, 0.12);
+  --sidenav-bg: rgba(10, 26, 28, 0.98);
+  --sidenav-overlay: rgba(0, 0, 0, 0.65);
+  --section-bg: rgba(15, 35, 38, 0.6);
+  --section-border: rgba(78, 233, 228, 0.1);
+  --text: #e8f4f5;
+  --text-muted: #8fa9ac;
+  --burger-color: #4ee9e4;
+  --cta-bg: #4ee9e4;
+  --cta-hover: #00d4d4;
+  --cta-text: #0a1a1c;
+}
+
+/* ===================================
+   BASE STYLES
+   =================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+  padding-top: var(--nav-height);
+}
+
+body.nav-scrolled {
+  padding-top: var(--nav-height-scrolled);
+}
+
+body.sidenav-open {
+  overflow: hidden;
+}
+
+/* ===================================
+   SKIP LINK (ACCESSIBILITY)
+   =================================== */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  padding: 12px 24px;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  z-index: 10004;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ===================================
+   NAVIGATION BAR
+   =================================== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  background: var(--nav-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: var(--nav-shadow);
+  z-index: var(--z-nav);
+  transition: height 0.3s ease, background 0.3s ease;
+}
+
+.nav.scrolled {
+  height: var(--nav-height-scrolled);
+  background: var(--nav-bg-scrolled);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+
+.nav-container {
+  max-width: var(--max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+/* ===================================
+   BRAND SECTION
+   =================================== */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: var(--transition);
+  padding: 6px 12px;
+  margin-left: -12px;
+  border-radius: 10px;
+}
+
+.nav-logo:hover {
+  background: var(--nav-hover-bg);
+  transform: translateY(-1px);
+}
+
+.nav-logo:focus-visible {
+  outline: 2px solid var(--nav-link);
+  outline-offset: 4px;
+}
+
+.nav-logo img {
+  height: 44px;
+  width: auto;
+  display: block;
+  transition: height 0.3s ease;
+}
+
+.nav.scrolled .nav-logo img {
+  height: 38px;
+}
+
+/* ===================================
+   DESKTOP NAVIGATION MENU
+   =================================== */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  height: 100%;
+  flex: 1;
+  justify-content: center;
+  max-width: 900px;
+}
+
+.nav-link {
+  position: relative;
+  padding: 10px 18px;
+  color: var(--nav-link);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: var(--transition);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01em;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 18px;
+  right: 18px;
+  height: 0;
+  background: var(--nav-link);
+  border-radius: 2px;
+  transition: height 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-link:hover {
+  color: var(--nav-hover);
+  background: var(--nav-hover-bg);
+}
+
+.nav-link.active {
+  color: var(--nav-hover);
+  font-weight: 700;
+}
+
+.nav-link.active::after {
+  height: 3px;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--nav-link);
+  outline-offset: 2px;
+}
+
+/* ===================================
+   NAVIGATION ACTIONS
+   =================================== */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.nav-cta {
+  padding: 11px 24px;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: var(--transition);
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-cta:hover {
+  background: var(--cta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10, 147, 150, 0.25);
+}
+
+[data-theme="dark"] .nav-cta:hover {
+  box-shadow: 0 4px 12px rgba(78, 233, 228, 0.35);
+}
+
+.nav-cta:focus-visible {
+  outline: 2px solid var(--nav-link);
+  outline-offset: 2px;
+}
+
+.theme-toggle {
+  background: var(--section-bg);
+  border: 1px solid var(--section-border);
+  padding: 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 42px;
+  transition: var(--transition);
+  color: var(--nav-link);
+}
+
+.theme-toggle:hover {
+  background: var(--nav-hover-bg);
+  border-color: var(--nav-link);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--nav-link);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+}
+
+/* ===================================
+   HAMBURGER MENU
+   =================================== */
+.burger {
+  display: none;
+  background: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 10003;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 8px;
+  transition: var(--transition);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.burger:hover {
+  background: var(--nav-hover-bg);
+}
+
+.burger:focus-visible {
+  outline: 2px solid var(--nav-link);
+  outline-offset: 2px;
+}
+
+.burger-line {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: var(--burger-color);
+  border-radius: 3px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.burger.open .burger-line:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.burger.open .burger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.burger.open .burger-line:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ===================================
+   SIDE NAVIGATION OVERLAY
+   =================================== */
+.sidenav-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--sidenav-overlay);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  opacity: 0;
+  z-index: var(--z-overlay);
+}
+
+.sidenav-overlay.open {
+  display: block;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===================================
+   SIDE NAVIGATION
+   =================================== */
+.sidenav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  max-width: 90vw;
+  background: var(--sidenav-bg);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.2);
+  transform: translateX(100%);
+  z-index: var(--z-sidenav);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidenav.open {
+  transform: translateX(0);
+}
+
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--section-border);
+  min-height: var(--nav-height);
+  background: var(--section-bg);
+  flex-shrink: 0;
+}
+
+.sidenav-brand img {
+  height: 38px;
+  width: auto;
+}
+
+.sidenav-close {
+  background: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 8px;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nav-link);
+}
+
+.sidenav-close:hover {
+  background: var(--nav-hover-bg);
+}
+
+.sidenav-close svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5;
+}
+
+.sidenav-content {
+  flex: 1;
+  padding: 16px 0;
+  overflow-y: auto;
+}
+
+.sidenav-cta {
+  margin: 0 16px 20px;
+  padding: 14px 20px;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.sidenav-cta:hover {
+  background: var(--cta-hover);
+  transform: translateY(-1px);
+}
+
+/* ===================================
+   COLLAPSIBLE SECTIONS
+   =================================== */
+.sidenav-section {
+  margin-bottom: 4px;
+}
+
+.sidenav-category {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: var(--transition);
+  border-radius: 8px;
+  margin: 0 12px;
+  user-select: none;
+}
+
+.sidenav-category:hover {
+  background: var(--nav-hover-bg);
+}
+
+.sidenav-category-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.sidenav-category-arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.sidenav-category.expanded .sidenav-category-arrow {
+  transform: rotate(90deg);
+}
+
+.sidenav-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidenav-submenu.expanded {
+  max-height: 800px;
+}
+
+.sidenav-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  list-style: none;
+  padding: 4px 16px 8px;
+}
+
+.sidenav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transition);
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px 10px 28px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.sidenav-link:hover {
+  background: var(--nav-hover-bg);
+  color: var(--nav-link);
+}
+
+.sidenav-link.active {
+  color: var(--nav-link);
+  font-weight: 600;
+  background: var(--nav-hover-bg);
+}
+
+.sidenav-link.active::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--nav-link);
+  border-radius: 50%;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 1100px) {
+  .nav-container {
+    padding: 0 32px;
+    gap: 32px;
+  }
+  
+  .nav-menu {
+    gap: 4px;
+    max-width: 700px;
+  }
+  
+  .nav-link {
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 920px) {
+  .nav-menu {
+    display: none;
+  }
+  
+  .burger {
+    display: flex;
+  }
+  
+  .nav-actions {
+    gap: 10px;
+  }
+  
+  .nav-cta {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-container {
+    padding: 0 24px;
+    gap: 20px;
+  }
+  
+  .nav-logo img {
+    height: 38px;
+  }
+  
+  .nav.scrolled .nav-logo img {
+    height: 34px;
+  }
+  
+  .theme-toggle {
+    padding: 8px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  
+  .sidenav {
+    width: 340px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 20px;
+  }
+  
+  .sidenav {
+    width: 100%;
+    max-width: 100vw;
+  }
+}
+
+/* ===================================
+   ACCESSIBILITY & ANIMATIONS
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--nav-link);
+  outline-offset: 2px;
+}
+
+</style>
 </head>
+<body data-theme="light">
 
-<body>
+  <!-- Skip Link for Accessibility -->
+  <a href="#main" class="skip-link">Skip to main content</a>
 
-  <!-- ===== MEAUXBILITY • Animation Symphony (Cloudflare R2 Optimized) ===== -->
+  <!-- Main Navigation Bar -->
+  <header class="nav" id="nav" role="banner">
+    <div class="nav-container">
+      <!-- Brand Section -->
+      <div class="nav-brand">
+        <a href="/" class="nav-logo" aria-label="Meauxbility Home">
+          <img src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/25392bd4-989e-4207-fb2b-c3a8f22eeb00/small" alt="Meauxbility" width="176" height="44">
+        </a>
+      </div>
+
+      <!-- Desktop Navigation Menu -->
+      <nav aria-label="Main navigation">
+        <ul class="nav-menu">
+          <li><a class="nav-link" href="/">Home</a></li>
+          <li><a class="nav-link" href="/pages/about-us">About</a></li>
+          <li><a class="nav-link" href="/pages/mobility-grants-programs">Programs</a></li>
+          <li><a class="nav-link" href="/pages/community">Community</a></li>
+          <li><a class="nav-link" href="/pages/resources-and-information">Resources</a></li>
+          <li><a class="nav-link" href="/pages/get-involved">Connect</a></li>
+          <li><a class="nav-link" href="/pages/donate">Impact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Navigation Actions -->
+      <div class="nav-actions">
+        <a href="/pages/apply-for-funding" class="nav-cta">Apply for Funding</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364l-1.414-1.414M7.05 7.05L5.636 5.636m12.728 0l-1.414 1.414M7.05 16.95l-1.414 1.414"/>
+          </svg>
+        </button>
+        <button class="burger" id="burger" aria-label="Toggle mobile menu" aria-expanded="false">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Side Navigation Overlay -->
+  <div class="sidenav-overlay" id="sidenavOverlay"></div>
+
+  <!-- Mobile Side Navigation -->
+  <nav class="sidenav" id="sidenav" aria-label="Mobile navigation">
+    <div class="sidenav-header">
+      <div class="sidenav-brand">
+        <img src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/25392bd4-989e-4207-fb2b-c3a8f22eeb00/small" alt="Meauxbility">
+      </div>
+      <button class="sidenav-close" id="sidenavClose" aria-label="Close mobile menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="sidenav-content">
+      <!-- CTA Button -->
+      <a href="/pages/apply-for-funding" class="sidenav-cta">Apply for Funding</a>
+
+      <!-- Main Navigation -->
+      <div class="sidenav-section">
+        <div class="sidenav-category expanded" data-category="main">
+          <span class="sidenav-category-label">Main Navigation</span>
+          <svg class="sidenav-category-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </div>
+        <div class="sidenav-submenu expanded" data-submenu="main">
+          <ul class="sidenav-nav">
+            <li><a href="/" class="sidenav-link">Home</a></li>
+            <li><a href="/pages/about-us" class="sidenav-link">About Us</a></li>
+            <li><a href="/pages/mobility-grants-programs" class="sidenav-link">Programs</a></li>
+            <li><a href="/pages/community" class="sidenav-link">Community</a></li>
+            <li><a href="/pages/resources-and-information" class="sidenav-link">Resources</a></li>
+            <li><a href="/pages/get-involved" class="sidenav-link">Connect</a></li>
+            <li><a href="/pages/donate" class="sidenav-link">Impact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- About Section -->
+      <div class="sidenav-section">
+        <div class="sidenav-category" data-category="about">
+          <span class="sidenav-category-label">About</span>
+          <svg class="sidenav-category-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </div>
+        <div class="sidenav-submenu" data-submenu="about">
+          <ul class="sidenav-nav">
+            <li><a href="/pages/team-meauxbility" class="sidenav-link">Team Meauxbility</a></li>
+            <li><a href="/pages/accessibility-partners" class="sidenav-link">Partners</a></li>
+            <li><a href="/pages/sam-primeaux" class="sidenav-link">About Sam</a></li>
+            <li><a href="/pages/non-profit-information" class="sidenav-link">501(c)(3) Info</a></li>
+            <li><a href="/pages/meauxbility-branding" class="sidenav-link">Brand Guide</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Get Involved Section -->
+      <div class="sidenav-section">
+        <div class="sidenav-category" data-category="involved">
+          <span class="sidenav-category-label">Get Involved</span>
+          <svg class="sidenav-category-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </div>
+        <div class="sidenav-submenu" data-submenu="involved">
+          <ul class="sidenav-nav">
+            <li><a href="/pages/apply-for-funding" class="sidenav-link">Apply for Funding</a></li>
+            <li><a href="/pages/donate" class="sidenav-link">Donate</a></li>
+            <li><a href="/pages/donmichael-our-first-campaign" class="sidenav-link">DonMichael Campaign</a></li>
+            <li><a href="/pages/get-involved" class="sidenav-link">Other Ways to Help</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Information Section -->
+      <div class="sidenav-section">
+        <div class="sidenav-category" data-category="info">
+          <span class="sidenav-category-label">Information</span>
+          <svg class="sidenav-category-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </div>
+        <div class="sidenav-submenu" data-submenu="info">
+          <ul class="sidenav-nav">
+            <li><a href="/pages/news-media-features" class="sidenav-link">Latest News</a></li>
+            <li><a href="/pages/faq" class="sidenav-link">FAQ</a></li>
+            <li><a href="/pages/contact" class="sidenav-link">Contact</a></li>
+            <li><a href="/pages/accessibility" class="sidenav-link">Accessibility</a></li>
+            <li><a href="/pages/policies" class="sidenav-link">Policies</a></li>
+            <li><a href="/pages/data-sharing-opt-out" class="sidenav-link">Data Opt-Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+    <main id="main">
+<!-- ===== MEAUXBILITY • Animation Symphony (Cloudflare R2 Optimized) ===== -->
   <section class="mvf-symphony" aria-label="About Meauxbility" role="region">
     <style>
       /* Foundation & Variables */
@@ -737,7 +1562,184 @@
       })();
     </script>
   </section>
-
-</body>
-
+  </main>
+  <!-- JavaScript -->
+  <script>
+  (function() {
+    'use strict';
+    
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => document.querySelectorAll(selector);
+    
+    const body = document.body;
+    const nav = $('#nav');
+    const burger = $('#burger');
+    const sidenav = $('#sidenav');
+    const sidenavOverlay = $('#sidenavOverlay');
+    const sidenavClose = $('#sidenavClose');
+    const themeToggle = $('#themeToggle');
+    
+    // ===================================
+    // THEME MANAGEMENT
+    // ===================================
+    const THEME_KEY = 'meauxbility-theme';
+    
+    function getInitialTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved) return saved;
+      return 'light';
+    }
+    
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      body.setAttribute('data-theme', theme);
+      localStorage.setItem(THEME_KEY, theme);
+    }
+    
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    }
+    
+    setTheme(getInitialTheme());
+    themeToggle?.addEventListener('click', toggleTheme);
+    
+    // ===================================
+    // SCROLL BEHAVIOR
+    // ===================================
+    let isScrolling = false;
+    
+    function handleScroll() {
+      if (!isScrolling) {
+        isScrolling = true;
+        requestAnimationFrame(() => {
+          const scrollY = window.pageYOffset;
+          
+          if (scrollY > 30) {
+            nav.classList.add('scrolled');
+            body.classList.add('nav-scrolled');
+          } else {
+            nav.classList.remove('scrolled');
+            body.classList.remove('nav-scrolled');
+          }
+          
+          isScrolling = false;
+        });
+      }
+    }
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // ===================================
+    // SIDE NAVIGATION
+    // ===================================
+    function openSidenav() {
+      burger.classList.add('open');
+      burger.setAttribute('aria-expanded', 'true');
+      sidenav.classList.add('open');
+      sidenavOverlay.classList.add('open');
+      body.classList.add('sidenav-open');
+    }
+    
+    function closeSidenav() {
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      sidenav.classList.remove('open');
+      sidenavOverlay.classList.remove('open');
+      body.classList.remove('sidenav-open');
+    }
+    
+    function toggleSidenav() {
+      if (burger.classList.contains('open')) {
+        closeSidenav();
+      } else {
+        openSidenav();
+      }
+    }
+    
+    burger?.addEventListener('click', toggleSidenav);
+    sidenavClose?.addEventListener('click', closeSidenav);
+    sidenavOverlay?.addEventListener('click', closeSidenav);
+    
+    $$('.sidenav-link, .sidenav-cta').forEach(link => {
+      link.addEventListener('click', () => {
+        setTimeout(closeSidenav, 150);
+      });
+    });
+    
+    // ===================================
+    // COLLAPSIBLE CATEGORIES
+    // ===================================
+    const categories = $$('.sidenav-category');
+    
+    function toggleCategory(category) {
+      const submenu = category.parentElement.querySelector('.sidenav-submenu');
+      
+      if (category.classList.contains('expanded')) {
+        category.classList.remove('expanded');
+        submenu.classList.remove('expanded');
+      } else {
+        category.classList.add('expanded');
+        submenu.classList.add('expanded');
+      }
+    }
+    
+    categories.forEach(category => {
+      category.addEventListener('click', () => toggleCategory(category));
+    });
+    
+    // ===================================
+    // ACTIVE LINK DETECTION
+    // ===================================
+    function updateActiveLinks() {
+      const path = window.location.pathname;
+      
+      $$('.nav-link, .sidenav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      $$('.nav-link, .sidenav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        
+        if (href === path || (href === '/' && path === '/')) {
+          link.classList.add('active');
+        }
+      });
+    }
+    
+    // ===================================
+    // KEYBOARD SHORTCUTS
+    // ===================================
+    function handleKeyboard(e) {
+      if (e.key === 'Escape' && sidenav.classList.contains('open')) {
+        closeSidenav();
+      }
+      
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        toggleTheme();
+      }
+    }
+    
+    window.addEventListener('keydown', handleKeyboard);
+    
+    // ===================================
+    // INITIALIZATION
+    // ===================================
+    function init() {
+      updateActiveLinks();
+      handleScroll();
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    
+    window.addEventListener('popstate', updateActiveLinks);
+    
+  })();
+  </script></body>
 </html>
