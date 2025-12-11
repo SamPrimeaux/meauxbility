@@ -151,7 +151,7 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
                 }
 
                 .desktop-nav {
-                    display: flex;
+                    display: flex !important;
                     flex: 1;
                     justify-content: center;
                 }
@@ -225,22 +225,22 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
 
                 .nav-cta {
                     padding: 11px 24px;
-                    background: var(--cta-bg);
-                    backdrop-filter: blur(12px);
-                    -webkit-backdrop-filter: blur(12px);
-                    color: var(--nav-link);
+                    background: rgba(10, 147, 150, 0.15) !important;
+                    backdrop-filter: blur(12px) !important;
+                    -webkit-backdrop-filter: blur(12px) !important;
+                    color: var(--nav-link) !important;
                     text-decoration: none;
                     font-size: 14px;
                     font-weight: 700;
                     border-radius: 8px;
                     transition: var(--transition);
                     white-space: nowrap;
-                    border: 1px solid var(--cta-border);
+                    border: 1px solid rgba(10, 147, 150, 0.25) !important;
                 }
 
                 .nav-cta:hover {
-                    background: var(--cta-hover);
-                    border-color: rgba(10,147,150,.4);
+                    background: rgba(10, 147, 150, 0.25) !important;
+                    border-color: rgba(10,147,150,.4) !important;
                     transform: translateY(-1px);
                     box-shadow: 0 4px 12px rgba(10,147,150,.2);
                 }
@@ -256,7 +256,7 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
                 }
 
                 .burger {
-                    display: none;
+                    display: none !important;
                     background: transparent;
                     border: none;
                     padding: 10px;
@@ -305,7 +305,7 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
                     background: var(--sidenav-overlay);
                     backdrop-filter: blur(6px);
                     -webkit-backdrop-filter: blur(6px);
-                    display: none;
+                    display: none !important;
                     opacity: 0;
                     z-index: var(--z-overlay);
                 }
@@ -331,7 +331,7 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
                     box-shadow: -8px 0 40px rgba(0,0,0,.2);
                     transform: translateX(100%);
                     z-index: var(--z-sidenav);
-                    display: flex;
+                    display: none;
                     flex-direction: column;
                     overflow-y: auto;
                     overflow-x: hidden;
@@ -467,19 +467,22 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
 
                 @media (max-width: 920px) {
                     .desktop-nav {
-                        display: none;
+                        display: none !important;
                     }
                     .burger {
-                        display: flex;
+                        display: flex !important;
                     }
                     .nav-actions {
                         gap: 10px;
                     }
                     .nav-cta {
-                        display: none;
+                        display: none !important;
                     }
                     .sidenav-overlay {
-                        display: block;
+                        display: block !important;
+                    }
+                    .sidenav {
+                        display: flex !important;
                     }
                 }
 
