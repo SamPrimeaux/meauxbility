@@ -1,46 +1,426 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <!-- iOS/Mobile optimized viewport -->
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <!-- iOS web app capable -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <!-- Theme color for browser chrome -->
-    <meta name="theme-color" content="#0A1628" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Meauxbility - Dashboard</title>
-    <!-- Prevent iOS tap highlight -->
-    <style>
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            height: -webkit-fill-available;
-        }
-
-        body {
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-        }
-    </style>
-  <script type="module" crossorigin src="./assets/index-DL1yodc_.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/react-vendor-1n7WZ4wG.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-C_Z9Mjja.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meauxbility - Empowering Movement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <div id="root"></div>
-</body>
 
+<!-- ===== MEAUXBILITY • Animation Symphony (Cloudflare R2 Optimized) ===== -->
+<section class="mvf-symphony" aria-label="About Meauxbility" role="region">
+  <style>
+    /* Foundation & Variables */
+    .mvf-symphony, .mvf-symphony * { box-sizing: border-box; }
+    .mvf-symphony {
+      --ink:#0c2d31; --body:#2b3d41; --muted:#4a5d62; --edge:rgba(12,45,49,.08);
+      --glass:rgba(255,255,255,.96); --orange:#FF7619; --orange-glow:rgba(255,118,25,.6);
+      --symphony-delay:.4s; --stagger:.15s; --hover-speed:.35s; --scroll-speed:.8s;
+
+      font-family:'Inter', system-ui, sans-serif;
+      width:100%; min-height:100vh;
+      padding:clamp(80px,12vw,160px) clamp(20px,5vw,60px) clamp(60px,10vw,120px);
+      background:
+        linear-gradient(180deg,#ffffff 0%,#f9fcfc 25%,#f0f8f8 45%,#e6f4f4 65%,#daf1f1 80%,#cfeced 92%,#c5e8e9 100%),
+        radial-gradient(ellipse at top right, rgba(255,118,25,0.03) 0%, transparent 40%),
+        radial-gradient(ellipse at bottom left, rgba(31,151,169,0.02) 0%, transparent 40%);
+      color:var(--ink);
+      position:relative; isolation:isolate; overflow-x:hidden;
+    }
+    .mvf-symphony::before{
+      content:""; position:absolute; inset:0; opacity:.015; pointer-events:none; z-index:1;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* Scroll progress */
+    .scroll-progress{
+      position:fixed; top:0; left:0; width:100%; height:3px; z-index:100;
+      background:linear-gradient(90deg,var(--orange) 0%, #ff9547 100%);
+      transform-origin:left; transform:scaleX(var(--progress,0));
+      transition:transform .1s linear;
+    }
+
+    .meaux-vision-container{ max-width:1440px; margin:0 auto; position:relative; z-index:2; }
+
+    /* Title */
+    .meaux-vision-title{
+      margin:0 auto clamp(40px,7vw,80px); max-width:80ch; font-weight:700;
+      font-size:clamp(20px,2.2vw,24px); line-height:1.8; color:var(--body);
+      text-align:center; text-wrap:balance; opacity:0; animation:titleReveal 1s ease-out var(--symphony-delay) forwards;
+    }
+    @keyframes titleReveal{
+      0%{opacity:0; transform:translateY(40px) scale(.95)}
+      50%{transform:translateY(-5px) scale(1.01)}
+      100%{opacity:1; transform:translateY(0) scale(1)}
+    }
+
+    /* Grid Items */
+    .meaux-vision-item{
+      position:relative; display:grid;
+      grid-template-columns:minmax(380px,1fr) minmax(380px,1fr);
+      gap:clamp(60px,8vw,120px); align-items:center;
+      margin-bottom:clamp(100px,12vw,180px); padding:clamp(40px,5vw,60px) 0;
+      opacity:0; transform:translateY(60px) scale(.98);
+      animation:itemSymphony .8s cubic-bezier(.34,1.56,.64,1) forwards;
+      animation-delay:calc(var(--symphony-delay) + var(--stagger) * var(--index,0));
+      will-change:transform, opacity;
+    }
+    @keyframes itemSymphony{
+      0%{opacity:0; transform:translateY(60px) scale(.98) rotate(.5deg)}
+      50%{transform:translateY(-10px) scale(1.02) rotate(-.2deg)}
+      100%{opacity:1; transform:translateY(0) scale(1) rotate(0)}
+    }
+    .meaux-vision-item:nth-child(2){--index:1}
+    .meaux-vision-item:nth-child(3){--index:2}
+    .meaux-vision-item:nth-child(4){--index:3}
+    .meaux-vision-item:nth-child(5){--index:4}
+    .meaux-vision-item:nth-child(even) .meaux-vision-text{order:2}
+    .meaux-vision-item:nth-child(even) .meaux-vision-visual{order:1}
+
+    /* Text & headings */
+    .meaux-vision-text{ position:relative; z-index:2; padding:20px; }
+    .core-value-title{
+      display:inline-block; margin:0 0 12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+      font-size:clamp(13px,1.5vw,15px); color:var(--orange); opacity:0;
+      animation:eyebrowSlide .6s ease-out calc(var(--symphony-delay) + var(--stagger) * var(--index,0) + .2s) forwards;
+    }
+    @keyframes eyebrowSlide{ from{opacity:0; transform:translateX(-20px)} to{opacity:1; transform:translateX(0)} }
+
+    .meaux-vision-heading{
+      font-weight:900; letter-spacing:-.03em; line-height:1.1;
+      font-size:clamp(32px,4.5vw,48px); margin:0 0 20px; color:var(--ink); position:relative; display:inline-block;
+    }
+    .meaux-vision-heading .u{position:relative; display:inline-block}
+    .meaux-vision-heading .u::after{
+      content:""; position:absolute; left:-5%; right:-5%; bottom:-8px; height:4px; border-radius:2px;
+      background:linear-gradient(90deg,transparent,var(--orange),transparent);
+      transform:scaleX(0); transform-origin:center; transition:transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    .meaux-vision-item.in-view .u::after{
+      transform:scaleX(1); box-shadow:0 0 20px var(--orange-glow),0 0 40px rgba(255,118,25,.3),0 0 60px rgba(255,118,25,.1);
+      animation:sparkPulse 2s ease-in-out infinite;
+    }
+    @keyframes sparkPulse{0%,100%{opacity:1}50%{opacity:.8; box-shadow:0 0 30px var(--orange-glow),0 0 60px rgba(255,118,25,.4)}}
+
+    .meaux-vision-desc{ font-weight:500; line-height:1.75; color:var(--body); font-size:clamp(18px,2vw,21px); margin:0 0 16px; max-width:65ch; }
+    .meaux-vision-subdesc{ font-weight:400; line-height:1.7; color:var(--muted); font-size:clamp(16px,1.8vw,19px); margin:0 0 20px; max-width:65ch; }
+
+    .value-definition{
+      background:linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.85));
+      border:1px solid rgba(255,118,25,.15); border-radius:16px; padding:18px 24px; margin-top:20px;
+      font-style:italic; color:var(--body); backdrop-filter:blur(10px);
+      box-shadow:0 4px 20px rgba(16,24,40,.08), 0 0 40px rgba(255,118,25,.05);
+      transition:all var(--hover-speed) cubic-bezier(.34,1.56,.64,1);
+    }
+    .value-definition strong{ color:var(--ink); font-weight:700; font-style:normal; }
+
+    /* Visuals */
+    .meaux-vision-visual{
+      height:clamp(380px,45vw,520px); border-radius:24px; overflow:hidden;
+      background:linear-gradient(135deg,#e9f4f4,#daf1f1);
+      position:relative; box-shadow:0 10px 40px rgba(12,45,49,.15),0 2px 10px rgba(12,45,49,.08);
+      transform:translateZ(0); transition:transform var(--hover-speed) cubic-bezier(.34,1.56,.64,1);
+      will-change:transform;
+    }
+    .meaux-vision-visual::before{
+      content:""; position:absolute; inset:0; background:linear-gradient(135deg,transparent,rgba(255,118,25,.1));
+      opacity:0; transition:opacity var(--hover-speed) ease; z-index:1;
+    }
+    .meaux-vision-visual img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform var(--hover-speed) ease }
+
+    /* Gate mouse/hover effects to pointer-accurate devices only */
+    @media (hover:hover) and (pointer:fine){
+      .meaux-vision-visual:hover{ transform:translateY(-8px) scale(1.02) rotateX(2deg); box-shadow:0 20px 60px rgba(12,45,49,.2),0 10px 30px rgba(12,45,49,.12),0 0 60px rgba(255,118,25,.08) }
+      .meaux-vision-visual:hover::before{ opacity:1 }
+      .meaux-vision-visual:hover img{ transform:scale(1.08) rotate(.5deg) }
+    }
+
+    /* Background watermark icons - REMASTERED SCROLL-FOLLOW */
+    .meaux-vision-text::before{
+      content:""; position:absolute; z-index:-1; pointer-events:none;
+      width:var(--bg-icon-size, clamp(280px, 36vw, 640px)); aspect-ratio:1;
+      left:var(--bg-x,-10%); top:var(--bg-y,-20%);
+      background-image:var(--bg-icon-src); background-size:contain; background-repeat:no-repeat; background-position:center;
+      opacity:.08; filter:blur(.5px); 
+      transform:rotate(var(--bg-rot,-6deg)) scale(var(--icon-scale, 1)) translateY(var(--icon-scroll-y, 0));
+      transition:opacity .6s ease, transform .15s ease-out;
+      will-change:transform;
+    }
+
+    /* Smooth breathing animation when in view */
+    .meaux-vision-item.in-view .meaux-vision-text::before{ 
+      opacity:.12; 
+      animation:iconBreathe 6s ease-in-out infinite;
+    }
+    @keyframes iconBreathe{
+      0%,100%{transform:rotate(var(--bg-rot,-6deg)) scale(var(--icon-scale, 1)) translateY(var(--icon-scroll-y, 0))}
+      50%{transform:rotate(calc(var(--bg-rot,-6deg) + 3deg)) scale(calc(var(--icon-scale, 1) * 1.05)) translateY(var(--icon-scroll-y, 0))}
+    }
+
+    /* Enhanced dramatic fall for item #4 */
+    .meaux-vision-item:nth-child(4) .meaux-vision-text::before {
+      transition:opacity .6s ease, transform .2s cubic-bezier(.16,1,.3,1);
+    }
+
+    .mvf-fallable.dramatic.falling::before{
+      animation: iconFallDramatic 2.8s cubic-bezier(.2,.65,.15,1) forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes iconFallDramatic{
+      0%   { transform:translateY(calc(var(--icon-scroll-y, 0) - 20px)) rotate(calc(var(--bg-rot,-6deg) - 8deg)) scale(1.08); opacity:.14; }
+      15%  { transform:translateY(calc(var(--icon-scroll-y, 0) - 45px)) rotate(calc(var(--bg-rot,-6deg) + 5deg))  scale(1.18); opacity:.2; }
+      30%  { transform:translateY(calc(var(--icon-scroll-y, 0) + 10px)) rotate(calc(var(--bg-rot,-6deg) - 3deg))  scale(1.12); }
+      55%  { transform:translateY(calc(var(--icon-scroll-y, 0) + 65vh)) rotate(calc(var(--bg-rot,-6deg) + 150deg)) scale(.92); opacity:.14; }
+      75%  { transform:translateY(calc(var(--icon-scroll-y, 0) + 80vh)) rotate(calc(var(--bg-rot,-6deg) + 190deg)) scale(.84); opacity:.09; }
+      100% { transform:translateY(calc(var(--icon-scroll-y, 0) + 95vh)) rotate(calc(var(--bg-rot,-6deg) + 220deg)) scale(.72); opacity:0; }
+    }
+
+    /* Skeleton loaders */
+    .skeleton-loader{ position:absolute; inset:0; background:linear-gradient(90deg,#f0f8f8 25%,#e6f4f4 50%,#f0f8f8 75%); background-size:200% 100%; animation:skeletonWave 1.5s infinite; border-radius:inherit; z-index:10; opacity:1; transition:opacity .3s ease; }
+    .skeleton-loader.loaded{ opacity:0; pointer-events:none; }
+    @keyframes skeletonWave{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+    /* Accessibility focus */
+    .mvf-symphony *:focus-visible{ outline:3px solid var(--orange); outline-offset:4px; border-radius:4px; }
+
+    /* Mobile-first adjustments */
+    @media (max-width:900px){
+      .mvf-symphony{ padding:clamp(60px,10vw,100px) clamp(16px,4vw,32px); }
+      .meaux-vision-item{ grid-template-columns:1fr; gap:40px; margin-bottom:clamp(60px,10vw,100px); text-align:center; }
+      .meaux-vision-item:nth-child(even) .meaux-vision-text{ order:1; }
+      .meaux-vision-item:nth-child(even) .meaux-vision-visual{ order:2; }
+      .meaux-vision-visual{ height:clamp(300px,55vw,400px); }
+      .meaux-vision-text::before{ --bg-icon-size:clamp(200px,50vw,400px); opacity:.06; }
+      @keyframes itemSymphony{ from{opacity:0; transform:translateY(40px)} to{opacity:1; transform:translateY(0)} }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce){
+      .mvf-symphony *, .mvf-symphony *::before, .mvf-symphony *::after{
+        animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;
+      }
+      .scroll-progress{ display:none; }
+    }
+
+    /* Pause-all helper */
+    .mvf-symphony.paused *, .mvf-symphony.paused *::before, .mvf-symphony.paused *::after{ animation-play-state:paused !important; }
+  </style>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+  <div class="meaux-vision-container">
+    <h1 class="meaux-vision-title">Empowering those with spinal cord injuries and mobility challenges to reclaim independence through resources, community, and unwavering support.</h1>
+
+    <!-- 1) OUR MISSION IS SIMPLE -->
+    <div class="meaux-vision-item" data-icon-speed="0.15">
+      <div class="meaux-vision-text"
+           style="--bg-icon-src:url('./images/icon-5'); --bg-x:-8%; --bg-y:-18%; --bg-rot:-8deg;">
+        <span class="core-value-title">Our Mission is Simple</span>
+        <h2 class="meaux-vision-heading"><span class="u">Meauxbility Empowers</span></h2>
+        <p class="meaux-vision-desc"><strong>Those battling spinal cord injuries and mobility challenges</strong> by providing resources, community, and opportunities that restore independence and create a better quality of life.</p>
+      </div>
+      <div class="meaux-vision-visual">
+        <div class="skeleton-loader"></div>
+        <img src="./images/hero-dsc06919" alt="Community support in action" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 2) OUR VISION -->
+    <div class="meaux-vision-item" data-icon-speed="0.22">
+      <div class="meaux-vision-text"
+           style="--bg-icon-src:url('./images/icon-2'); --bg-x:-6%; --bg-y:-15%; --bg-rot:-4deg;">
+        <span class="core-value-title">Our Vision</span>
+        <h2 class="meaux-vision-heading"><span class="u">A Future Without Limits</span></h2>
+        <p class="meaux-vision-desc">Where people of all abilities have equal access to resources, opportunities, and the fullness of life.</p>
+        <div class="value-definition"><strong>More Options + More Access = More Life.</strong></div>
+      </div>
+      <div class="meaux-vision-visual">
+        <div class="skeleton-loader"></div>
+        <img src="./images/vision-apex-legday" alt="Vision of inclusive access and opportunity" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 3) BUILT BY EXPERIENCE -->
+    <div class="meaux-vision-item" data-icon-speed="0.18">
+      <div class="meaux-vision-text"
+           style="--bg-icon-src:url('./images/icon-4'); --bg-x:-9%; --bg-y:-20%; --bg-rot:-10deg;">
+        <span class="core-value-title">Built by Experience</span>
+        <h2 class="meaux-vision-heading"><span class="u">Driven by Results</span></h2>
+        <p class="meaux-vision-desc">A motorcycle accident in 2017 left our founder, <strong>Sam Primeaux</strong>, paralyzed from the chest down. Through faith, grit, and the support of his community, Sam reclaimed his independence—and turned that journey into a movement.</p>
+      </div>
+      <div class="meaux-vision-visual">
+        <div class="skeleton-loader"></div>
+        <img src="./images/story-dsc06873" alt="Founder story and recovery journey" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 4) OBSTACLES INTO OPPORTUNITY (DRAMATIC FALL ICON) -->
+    <div class="meaux-vision-item" data-icon-speed="0.28">
+      <div class="meaux-vision-text mvf-fallable dramatic" data-fall-trigger="0.55"
+           style="--bg-icon-src:url('./images/icon-6'); --bg-x:-7%; --bg-y:-16%; --bg-rot:-6deg;">
+        <span class="core-value-title">Empowerment</span>
+        <h2 class="meaux-vision-heading"><span class="u">Obstacles into Opportunity</span></h2>
+        <p class="meaux-vision-desc">Today we combine <strong>funding, mentorship, and a practical recovery playbook</strong> so people with mobility challenges can accelerate their progress toward freedom.</p>
+        <p class="meaux-vision-subdesc">We believe recovery shouldn't depend on wealth—everyone deserves more options, more access, and more life.</p>
+      </div>
+      <div class="meaux-vision-visual">
+        <div class="skeleton-loader"></div>
+        <img src="./images/empowerment-group" alt="Turning challenges into progress" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 5) COMMUNITY -->
+    <div class="meaux-vision-item" data-icon-speed="0.2">
+      <div class="meaux-vision-text"
+           style="--bg-icon-src:url('./images/icon-3'); --bg-x:-8%; --bg-y:-18%; --bg-rot:-6deg;">
+        <span class="core-value-title">Community</span>
+        <h2 class="meaux-vision-heading"><span class="u">The Meauxbility Movement</span></h2>
+        <p class="meaux-vision-desc">What began as one story is now a growing network of people and partners creating more access—and more life—together.</p>
+        <p class="meaux-vision-subdesc">No one should face life's hardest challenges alone.</p>
+        <div class="value-definition"><strong>Join us.</strong> Belonging, encouragement, and shared strength start here.</div>
+      </div>
+      <div class="meaux-vision-visual">
+        <div class="skeleton-loader"></div>
+        <img src="./images/community-img6190" alt="Community standing together" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const section = document.currentScript.closest('.mvf-symphony');
+      if (!section || section.dataset.initialized) return;
+      section.dataset.initialized = '1';
+
+      const isCoarse = window.matchMedia('(pointer:coarse)').matches;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* Scroll progress */
+      const updateProgress = () => {
+        const scrolled = window.scrollY;
+        const height = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+        const progress = Math.min(scrolled / height, 1);
+        section.style.setProperty('--progress', progress);
+      };
+
+      /* Enhanced parallax with smooth icon scroll-following */
+      const handleIconParallax = () => {
+        if (prefersReducedMotion) return;
+        
+        const scrolled = window.scrollY;
+        const viewportHeight = window.innerHeight;
+
+        section.querySelectorAll('.meaux-vision-item').forEach((item) => {
+          const textEl = item.querySelector('.meaux-vision-text');
+          if (!textEl) return;
+
+          // Get item position relative to viewport
+          const rect = item.getBoundingClientRect();
+          const itemTop = rect.top;
+          const itemBottom = rect.bottom;
+          const itemHeight = rect.height;
+
+          // Calculate visibility ratio (0 = not visible, 1 = fully visible)
+          const visibilityStart = viewportHeight;
+          const visibilityEnd = -itemHeight;
+          const visibleRange = visibilityStart - visibilityEnd;
+          const currentPosition = itemTop - visibilityEnd;
+          const visibilityRatio = Math.max(0, Math.min(1, currentPosition / visibleRange));
+
+          // Icon speed multiplier (from data attribute)
+          const iconSpeed = parseFloat(item.dataset.iconSpeed || '0.2');
+          
+          // Calculate smooth vertical offset
+          const scrollProgress = 1 - visibilityRatio;
+          const baseOffset = isCoarse ? 40 : 120;
+          const iconOffset = -scrollProgress * baseOffset * iconSpeed;
+
+          // Scale effect based on viewport position
+          const centerDistance = Math.abs(itemTop + itemHeight / 2 - viewportHeight / 2);
+          const maxDistance = viewportHeight;
+          const scaleVariation = 1 - (centerDistance / maxDistance) * 0.08;
+          const iconScale = Math.max(0.94, Math.min(1.06, scaleVariation));
+
+          // Apply transforms
+          textEl.style.setProperty('--icon-scroll-y', `${iconOffset}px`);
+          textEl.style.setProperty('--icon-scale', iconScale);
+        });
+      };
+
+      /* Intersection Observer for in-view animations */
+      const observerOptions = { root: null, rootMargin: '0px', threshold: [0.2, 0.4, 0.55, 0.7] };
+      const itemObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+            entry.target.classList.add('in-view');
+            
+            // Dramatic fall trigger for icon #4
+            const fallable = entry.target.querySelector('.mvf-fallable.dramatic');
+            if (fallable) {
+              const trigger = parseFloat(fallable.dataset.fallTrigger || '0.55');
+              if (entry.intersectionRatio >= trigger && !fallable.classList.contains('falling')) {
+                fallable.classList.add('falling');
+              }
+            }
+          }
+        });
+      }, observerOptions);
+      
+      section.querySelectorAll('.meaux-vision-item').forEach(item => itemObserver.observe(item));
+
+      /* Skeleton loaders */
+      section.querySelectorAll('.meaux-vision-visual img').forEach(img => {
+        const skeleton = img.previousElementSibling;
+        if (img.complete) { 
+          skeleton?.classList.add('loaded'); 
+        } else { 
+          img.addEventListener('load', () => setTimeout(() => skeleton?.classList.add('loaded'), 100)); 
+        }
+      });
+
+      /* Throttled scroll handlers using RAF */
+      let ticking = false;
+      const handleScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateProgress();
+            handleIconParallax();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+
+      /* Pause animations when tab is hidden */
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          section.classList.add('paused');
+        } else {
+          section.classList.remove('paused');
+        }
+      });
+
+      /* Initial pass */
+      updateProgress();
+      handleIconParallax();
+
+      /* Re-calculate on resize (debounced) */
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          handleIconParallax();
+        }, 150);
+      }, { passive: true });
+    })();
+  </script>
+</section>
+
+</body>
 </html>
