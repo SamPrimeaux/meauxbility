@@ -136,13 +136,13 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
                     outline-offset: 4px;
                 }
                 .nav-logo img {
-                    height: 66px;
-                    width: auto;
+                    height: 66px !important;
+                    width: auto !important;
                     display: block;
                     transition: height 0.3s ease;
                 }
                 .nav.scrolled .nav-logo img {
-                    height: 57px;
+                    height: 57px !important;
                 }
 
                 .desktop-nav {
@@ -484,10 +484,10 @@ import{r as a,a as bt,u as Je,L as D,b as ft,B as vt,R as yt,c as H,d as jt}from
                         gap: 20px;
                     }
                     .nav-logo img {
-                        height: 57px;
+                        height: 57px !important;
                     }
                     .nav.scrolled .nav-logo img {
-                        height: 51px;
+                        height: 51px !important;
                     }
                     .sidenav {
                         width: 340px;
