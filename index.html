@@ -1,46 +1,4372 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <!-- iOS/Mobile optimized viewport -->
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <!-- iOS web app capable -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <!-- Theme color for browser chrome -->
-    <meta name="theme-color" content="#0A1628" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Meauxbility - Dashboard</title>
-    <!-- Prevent iOS tap highlight -->
-    <style>
-        * {
-            -webkit-tap-highlight-color: transparent;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Meauxbility - Empowering Mobility & Independence for Spinal Cord Injury Survivors</title>
+  <meta name="description" content="Built by a survivor for survivors. Meauxbility connects people with spinal cord injuries to treatments, technology, and community that change outcomes. More options. More access. More life.">
+  <meta property="og:image:alt" content="Meauxbility - Official Wordmark Logo">
+  <meta name="keywords"
+    content="spinal cord injury, SCI, mobility assistance, adaptive equipment, wheelchair grants, spinal cord injury recovery, disability support, mobility independence, adaptive sports, spinal cord injury resources">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.meauxbility.org/">
+  <meta property="og:title" content="Meauxbility - Empowering Mobility & Independence for Spinal Cord Injury Survivors">
+  <meta property="og:description"
+    content="Built by a survivor for survivors. We connect people with spinal cord injuries to treatments, technology, and community that change outcomes.">
+  <meta property="og:image"
+    content="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/30ac1d8b-8ce0-43dd-63ec-1c0d7f169000/hero">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Meauxbility - Empowering Mobility & Independence">
+  <meta name="twitter:description"
+    content="Built by a survivor for survivors. Connecting spinal cord injury survivors to treatments, technology, and community.">
+  <meta name="twitter:image"
+    content="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/30ac1d8b-8ce0-43dd-63ec-1c0d7f169000/hero">
+  <link rel="canonical" href="https://www.meauxbility.org/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://js.stripe.com">
+  <link rel="dns-prefetch" href="https://imagedelivery.net">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"
+    media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+  </noscript>
+  <!-- Stripe.js - Lazy load when donation modal opens (saves 206.8 KiB) -->
+  <script nonce="MzAzMDYzODE2NCwxNzkzMDc0MDk1">
+    window.loadStripe = function () {
+      if (!window.Stripe && !document.querySelector('script[src*="stripe"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://js.stripe.com/v3/';
+        script.async = true;
+        document.head.appendChild(script);
+      }
+    };
+  </script>
+  <!-- model-viewer - Lazy load when 3D model is in viewport (saves 258.7 KiB) -->
+  <script nonce="MzAzMDYzODE2NCwxNzkzMDc0MDk1">
+    if ('IntersectionObserver' in window) {
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !window.customElements.get('model-viewer')) {
+              const script = document.createElement('script');
+              script.type = 'module';
+              script.src = 'https://unpkg.com/@google/model-viewer@4.1.0/dist/model-viewer.min.js';
+              document.head.appendChild(script);
+              observer.disconnect();
+            }
+          });
+        }, { rootMargin: '50px' });
+        const modelViewers = document.querySelectorAll('model-viewer');
+        if (modelViewers.length > 0) {
+          modelViewers.forEach(el => observer.observe(el));
         }
+      });
+    }
+  </script>
+  <style>
+    :root {
+      --meauxxxPrimary: #FF6B00;
+      --meauxxxPrimaryDark: #E85D00;
+      --meauxxxPrimaryLight: #FF8A33;
+      --meauxxxSecondary: #339999;
+      --meauxxxSecondaryDark: #2C8B8B;
+      --meauxxxTextPrimary: #0C2D31;
+      --meauxxxTextSecondary: #173E45;
+      --meauxxxSurface: #FFFFFF;
+      --meauxxxSurfaceAlt: #F7FAFB;
+      --meauxxxBorder: rgba(12, 45, 49, 0.08);
+      --meauxxxContainer: min(1200px, 100%);
+      --meauxxxEase: cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        html {
-            height: -webkit-fill-available;
-        }
+    .meauxxxContainer {
+      max-width: var(--meauxxxContainer);
+      margin: 0 auto;
+      padding: 0 1.5rem
+    }
 
-        body {
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-        }
-    </style>
-  <script type="module" crossorigin src="./assets/index-DL1yodc_.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/react-vendor-1n7WZ4wG.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-C_Z9Mjja.css">
+    @media(min-width:768px) {
+      .meauxxxContainer {
+        padding: 0 2rem
+      }
+    }
+
+    .meauxxxHeadingXL {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin: 0
+    }
+
+    .meauxxxHeadingLG {
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin: 0
+    }
+
+    .meauxxxTextLead {
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      line-height: 1.6;
+      color: var(--meauxxxTextSecondary)
+    }
+
+    .meauxxxTextHighlight {
+      color: var(--meauxxxPrimary);
+      font-weight: 700
+    }
+
+    .meauxxxTextBody {
+      font-size: clamp(1.125rem, 2vw, 1.5rem);
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 2rem
+    }
+
+    .meauxxxButton {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: transform .2s ease, background-color .25s ease, color .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap
+    }
+
+    .meauxxxButtonPrimary {
+      background: linear-gradient(135deg, #FF6B35 0%, #E85D00 100%);
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .25)
+    }
+
+    .meauxxxButtonPrimary:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #FF7A1A 0%, #F06D10 100%);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .3)
+    }
+
+    .meauxxxButtonSecondary {
+      color: #FF6B35 !important;
+      background: transparent !important;
+      border: 2px solid #FF6B35 !important;
+      box-shadow: 0 0 20px rgba(255, 107, 0, 0.2) !important
+    }
+
+    .meauxxxButtonSecondary:hover {
+      color: #fff !important;
+      background: #FF6B35 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3) !important
+    }
+
+    .meauxxxButtonGroup {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 3rem
+    }
+
+    .meauxxxAnnouncement {
+      background: var(--meauxxxSurface);
+      border-bottom: 1px solid var(--meauxxxBorder);
+      padding: 1rem 0;
+      overflow: hidden;
+      position: relative
+    }
+
+    .meauxxxAnnouncementWrapper {
+      display: flex;
+      position: relative;
+      width: 200%
+    }
+
+    .meauxxxAnnouncementTrack {
+      display: flex;
+      animation: meauxxxRTL 25s linear infinite;
+      width: 100%;
+      gap: 6rem;
+      align-items: center
+    }
+
+    @keyframes meauxxxRTL {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+
+    .meauxxxAnnouncementText {
+      display: inline-block;
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3.5rem) !important;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: var(--meauxxxTextPrimary)
+    }
+
+    .meauxxxAnnouncementDot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--meauxxxPrimary);
+      border-radius: 50%;
+      margin: 0 1.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -2px
+    }
+
+    .meauxxxHero {
+      padding: clamp(4rem, 8vw, 6rem) 0 2rem;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(180deg, #ffffff 0%, #fafbfc 25%, #f5f7fa 50%, #f0f3f6 75%, #eef1f4 100%);
+      position: relative;
+      overflow: hidden
+    }
+
+    .meauxxxHero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at top center, rgba(255, 107, 53, 0.03) 0%, transparent 50%), radial-gradient(ellipse at bottom center, rgba(51, 153, 153, 0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .meauxxxHeroContent {
+      position: relative;
+      z-index: 1;
+      text-align: center
+    }
+
+    .meauxxxHeroMedia {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto 2rem;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+      background: var(--meauxxxSurfaceAlt)
+    }
+
+    .meauxxxHeroMedia img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: scale(1.1);
+      transition: none;
+      will-change: transform
+    }
+
+    .meauxxxHeroTitle {
+      margin-bottom: 1.5rem
+    }
+
+    .meauxxxHeroDescription {
+      max-width: 800px;
+      margin: 0 auto 2rem
+    }
+
+
+    .meauxxxValues {
+      padding: 3rem 0 4rem;
+      background: linear-gradient(180deg, #f7fafb 0%, #f0f4f7 50%, #e8edf1 100%);
+      position: relative
+    }
+
+    .meauxxxValues::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(51, 153, 153, 0.05) 0%, transparent 40%), radial-gradient(circle at 70% 80%, rgba(255, 107, 53, 0.03) 0%, transparent 40%);
+      pointer-events: none
+    }
+
+    .meauxxxValuesHeader {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 3rem
+    }
+
+    .meauxxxValuesGrid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem
+    }
+
+    .meauxxxValueCard {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s var(--meauxxxEase)
+    }
+
+    .meauxxxValueCard.meauxxxInView {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .meauxxxIconMorph {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1rem;
+      cursor: pointer
+    }
+
+    .meauxxxValueIcon {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
+      transition: opacity 0.4s ease, transform 0.4s ease
+    }
+
+    .meauxxxIconText {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--meauxxxSecondary);
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.4s ease, transform 0.4s ease
+    }
+
+    .meauxxxIconMorph.morphed .meauxxxValueIcon {
+      opacity: 0;
+      transform: scale(0.8)
+    }
+
+    .meauxxxIconMorph.morphed .meauxxxIconText {
+      opacity: 1;
+      transform: scale(1)
+    }
+
+    .meauxxxValueLabel {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--meauxxxPrimary);
+      margin-bottom: 0.5rem;
+      text-align: center
+    }
+
+    .meauxxxHeadingMD {
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+      text-align: center
+    }
+
+    .meauxxxValueTitle {
+      margin-bottom: 1rem;
+      text-align: center
+    }
+
+    .meauxxxValueDescription {
+      color: var(--meauxxxTextSecondary);
+      max-width: 320px;
+      margin: 0 auto;
+      text-align: center
+    }
+
+
+    .meauxxxGap {
+      padding: 4rem 0;
+      background: linear-gradient(180deg, #ffffff 0%, #fafbfc 30%, #ffffff 70%, #f8f9fa 100%);
+      position: relative
+    }
+
+    .meauxxxGap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(51, 153, 153, 0.02) 0%, transparent 50%, rgba(255, 107, 53, 0.02) 100%);
+      pointer-events: none
+    }
+
+    .meauxxxGapHeader {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 3rem
+    }
+
+    .meauxxxGapGrid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem
+    }
+
+    .meauxxxGapCard {
+      padding: 1.5rem;
+      background: var(--meauxxxSurface);
+      border: 1px solid var(--meauxxxBorder);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s var(--meauxxxEase);
+      position: relative;
+      overflow: hidden
+    }
+
+    .meauxxxGapCard::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--meauxxxSecondary);
+      transform: scaleY(0);
+      transition: transform 0.3s var(--meauxxxEase)
+    }
+
+    .meauxxxGapCard:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--meauxxxSecondary)
+    }
+
+    .meauxxxGapCard:hover::before {
+      transform: scaleY(1)
+    }
+
+    .meauxxxGapCardTitle {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--meauxxxSecondary);
+      margin-bottom: 0.5rem
+    }
+
+    .meauxxxGapCardText {
+      color: var(--meauxxxTextSecondary);
+      line-height: 1.6
+    }
+
+
+    .meauxxxCampaign {
+      padding: 3rem 0;
+      background: linear-gradient(180deg, #ffffff 0%, #fafbfc 50%, #f5f7fa 100%);
+      position: relative
+    }
+
+    .meauxxxCampaign::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center, rgba(51, 153, 153, 0.03) 0%, transparent 70%);
+      pointer-events: none
+    }
+
+    .meauxxxCampaignLayout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto
+    }
+
+    @media(min-width:768px) {
+      .meauxxxCampaignLayout {
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 3rem
+      }
+    }
+
+    .meauxxxCampaignImage {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+      position: relative;
+      max-width: 450px
+    }
+
+    .meauxxxCampaignImage img {
+      width: 100%;
+      height: auto;
+      display: block
+    }
+
+    .meauxxxCampaignContent {
+      padding: 1rem 0
+    }
+
+    .meauxxxCampaignNumber {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--meauxxxSecondary);
+      margin-bottom: 0.5rem
+    }
+
+    .meauxxxCampaignText {
+      color: var(--meauxxxTextSecondary);
+      margin-bottom: 1rem;
+      font-size: 1.375rem;
+      font-weight: 500;
+      line-height: 1.6
+    }
+
+    .meauxxxCampaignText strong {
+      color: var(--meauxxxPrimary);
+      font-weight: 800
+    }
+
+    .meauxxxProgress {
+      margin: 2rem 0
+    }
+
+    .meauxxxProgressBar {
+      height: 16px;
+      background: rgba(51, 153, 153, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative
+    }
+
+    .meauxxxProgressFill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--meauxxxSecondary), var(--meauxxxSecondaryDark));
+      border-radius: 999px;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative
+    }
+
+    .meauxxxProgressFill::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: meauxxxShimmer 2s infinite
+    }
+
+    @keyframes meauxxxShimmer {
+      0% {
+        transform: translateX(-100%)
+      }
+
+      100% {
+        transform: translateX(100%)
+      }
+    }
+
+    .meauxxxProgressText {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.75rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--meauxxxTextSecondary)
+    }
+
+    .meauxxxProgressAmount {
+      font-weight: 800;
+      color: var(--meauxxxTextPrimary)
+    }
+
+
+    .meauxxxMovement {
+      padding: clamp(4rem, 8vw, 6rem) 0;
+      background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 50%, #fafbfc 100%);
+      position: relative
+    }
+
+    .meauxxxMovement::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(51, 153, 153, 0.04) 0%, transparent 50%), radial-gradient(ellipse at 70% 50%, rgba(255, 107, 53, 0.03) 0%, transparent 50%);
+      pointer-events: none
+    }
+
+    .meauxxxMovementLayout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1.5rem, 3vw, 2rem);
+      align-items: center;
+      max-width: clamp(900px, 90vw, 1100px);
+      margin: 0 auto
+    }
+
+    @media(min-width:768px) {
+      .meauxxxMovementLayout {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 4vw, 3rem)
+      }
+    }
+
+    .meauxxxMovementImage {
+      border-radius: clamp(16px, 2vw, 20px);
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+      transform: scale(1);
+      transition: transform 0.8s ease
+    }
+
+    .meauxxxMovementImage.meauxxxScaled {
+      transform: scale(1.05)
+    }
+
+    .meauxxxMovementImage img {
+      width: 100%;
+      height: auto;
+      display: block
+    }
+
+    .meauxxxMovementContent h2 {
+      margin-bottom: clamp(0.75rem, 1.5vw, 1rem)
+    }
+
+
+    #meaux-partners {
+      --teal: #339999;
+      --teal-light: #4ABAB8;
+      --teal-glow: rgba(74, 186, 184, 0.3);
+      --teal-mid: #2C8B8B;
+      --teal-dark: #237373;
+      --orange: #FF6B35;
+      --orange-bright: #FF7A00;
+      --text-dark: #0C2D31;
+      --white: #FFFFFF;
+      --max-width: 1440px;
+      --gap: clamp(24px, 4vw, 48px);
+      --row-gap: clamp(28px, 5vw, 64px);
+      --logo-w: clamp(152px, 21vw, 264px);
+      --logo-h: clamp(50px, 7.2vw, 82px);
+      position: relative;
+      width: 100vw;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(51, 153, 153, 0.03) 5%, rgba(51, 153, 153, 0.08) 12%, rgba(51, 153, 153, 0.15) 20%, rgba(51, 153, 153, 0.25) 30%, rgba(51, 153, 153, 0.38) 42%, rgba(51, 153, 153, 0.55) 55%, rgba(51, 153, 153, 0.72) 70%, rgba(51, 153, 153, 0.88) 85%, #339999 100%);
+      padding: clamp(48px, 6vw, 96px) 0 clamp(100px, 12vw, 160px);
+      margin-bottom: -2px
+    }
+
+    #meaux-partners::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 25% 40%, rgba(74, 186, 184, 0.08) 0%, transparent 40%), radial-gradient(circle at 75% 60%, rgba(255, 107, 53, 0.04) 0%, transparent 35%);
+      mix-blend-mode: multiply;
+      opacity: 0.7;
+      animation: floatMesh 30s ease-in-out infinite;
+      pointer-events: none
+    }
+
+    @keyframes floatMesh {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1)
+      }
+
+      50% {
+        transform: translate(-20px, -10px) scale(1.05)
+      }
+    }
+
+    .wave-transition {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      overflow: hidden;
+      z-index: 1
+    }
+
+    .wave-transition svg {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 120px;
+      will-change: transform
+    }
+
+    .wave-path-1 {
+      animation: waveMotion1 20s ease-in-out infinite
+    }
+
+    .wave-path-2 {
+      animation: waveMotion2 15s ease-in-out infinite
+    }
+
+    .wave-path-3 {
+      animation: waveMotion3 25s ease-in-out infinite
+    }
+
+    @keyframes waveMotion1 {
+
+      0%,
+      100% {
+        transform: translateX(0) scaleY(1)
+      }
+
+      50% {
+        transform: translateX(50px) scaleY(1.1)
+      }
+    }
+
+    @keyframes waveMotion2 {
+
+      0%,
+      100% {
+        transform: translateX(0) scaleY(1)
+      }
+
+      50% {
+        transform: translateX(-30px) scaleY(0.9)
+      }
+    }
+
+    @keyframes waveMotion3 {
+
+      0%,
+      100% {
+        transform: translateX(0) scaleY(1)
+      }
+
+      33% {
+        transform: translateX(40px) scaleY(1.05)
+      }
+
+      66% {
+        transform: translateX(-40px) scaleY(0.95)
+      }
+    }
+
+    #meaux-partners .wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--gap);
+      text-align: center;
+      position: relative;
+      z-index: 2
+    }
+
+    #meaux-partners h3 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0 auto 2rem;
+      color: var(--text-dark);
+      font-family: 'Inter', system-ui, sans-serif;
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      transition: color 0.4s ease, transform 0.4s ease;
+      text-shadow: 0 4px 15px rgba(31, 151, 169, 0.3);
+      letter-spacing: -0.02em
+    }
+
+    #meaux-partners h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 4px;
+      background: var(--orange);
+      transition: width 0.6s ease;
+      border-radius: 2px
+    }
+
+    #meaux-partners h3:hover {
+      color: var(--teal-light);
+      transform: scale(1.02)
+    }
+
+    #meaux-partners h3:hover::after {
+      width: 100%
+    }
+
+    #meaux-partners .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--row-gap) var(--gap);
+      align-items: center;
+      justify-items: center;
+      margin: clamp(32px, 4vw, 56px) 0;
+      position: relative
+    }
+
+    #meaux-partners .logo {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      width: var(--logo-w);
+      height: var(--logo-h);
+      display: inline-block;
+      cursor: pointer
+    }
+
+    #meaux-partners .logo.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    #meaux-partners .logo:nth-child(1) {
+      transition-delay: 0.1s
+    }
+
+    #meaux-partners .logo:nth-child(2) {
+      transition-delay: 0.2s
+    }
+
+    #meaux-partners .logo:nth-child(3) {
+      transition-delay: 0.3s
+    }
+
+    #meaux-partners .logo:nth-child(4) {
+      transition-delay: 0.4s
+    }
+
+    #meaux-partners .logo:nth-child(5) {
+      transition-delay: 0.5s
+    }
+
+    #meaux-partners .logo:nth-child(6) {
+      transition-delay: 0.6s
+    }
+
+    #meaux-partners .logo:hover {
+      transform: translateY(-4px) scale(1.03)
+    }
+
+    #meaux-partners .logo>* {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1)
+    }
+
+    #meaux-partners .mask {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      background-image: var(--src);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      filter: drop-shadow(0 2px 4px rgba(74, 186, 184, 0.3)) drop-shadow(0 0 12px rgba(74, 186, 184, 0.15)) brightness(1.05);
+      will-change: filter
+    }
+
+    #meaux-partners .logo .a {
+      opacity: 1;
+      transform: scaleY(1)
+    }
+
+    #meaux-partners .logo .b {
+      opacity: 0;
+      transform: scaleY(0.05)
+    }
+
+    #meaux-partners .logo.winking .a {
+      opacity: 0;
+      transform: scaleY(0.05)
+    }
+
+    #meaux-partners .logo.winking .b {
+      opacity: 1;
+      transform: scaleY(1)
+    }
+
+    #meaux-partners .logo[data-state="b"] .a {
+      opacity: 0;
+      transform: scaleY(0.05)
+    }
+
+    #meaux-partners .logo[data-state="b"] .b {
+      opacity: 1;
+      transform: scaleY(1)
+    }
+
+    #meaux-partners .logo:hover .mask {
+      filter: drop-shadow(0 2px 8px rgba(74, 186, 184, 0.5)) drop-shadow(0 0 30px rgba(74, 186, 184, 0.3)) brightness(1.1)
+    }
+
+    #meaux-partners .cta {
+      display: inline-flex;
+      gap: 0.75rem;
+      align-items: center;
+      font: 700 clamp(15px, 1.8vw, 18px)/1.35 'Inter', system-ui, sans-serif;
+      text-decoration: none;
+      margin-top: 24px;
+      color: var(--white);
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.65) 0%, rgba(255, 122, 0, 0.55) 100%);
+      border: 2px solid rgba(255, 107, 53, 0.85);
+      padding: 14px 32px;
+      border-radius: 14px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 24px rgba(255, 107, 53, 0.35), 0 0 30px rgba(255, 107, 53, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      position: relative;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
+    }
+
+    #meaux-partners .cta:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.75) 0%, rgba(255, 122, 0, 0.65) 100%);
+      border-color: rgba(255, 122, 0, 0.95);
+      box-shadow: 0 6px 32px rgba(255, 107, 53, 0.45), 0 0 45px rgba(255, 107, 53, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.3)
+    }
+
+    #meaux-partners .cta svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      transition: transform 0.3s ease
+    }
+
+    #meaux-partners .cta:hover svg {
+      transform: translateX(4px)
+    }
+
+    @media(max-width:900px) {
+      #meaux-partners .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px 28px
+      }
+    }
+
+    @media(max-width:520px) {
+      #meaux-partners .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 20px
+      }
+
+      #meaux-partners {
+        --logo-w: clamp(140px, 40vw, 200px);
+        --logo-h: clamp(45px, 12vw, 65px);
+        padding-bottom: clamp(100px, 15vw, 160px)
+      }
+
+      #meaux-partners h3 {
+        font-size: clamp(2.5rem, 8vw, 3.5rem)
+      }
+
+      #meaux-partners .cta {
+        padding: 12px 24px;
+        font-size: 14px
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      #meaux-partners * {
+        animation: none !important;
+        transition: opacity 0.2s ease !important
+      }
+
+      .wave-path-1,
+      .wave-path-2,
+      .wave-path-3 {
+        animation: none !important
+      }
+    }
+
+
+    :root {
+      --footer-teal: #339999;
+      --footer-teal-mid: #2C8B8B;
+      --footer-teal-dark: #237373;
+      --footer-orange: #FF6B35;
+      --footer-orange-dark: #E85D00;
+      --footer-purple: #9945FF;
+      --footer-purple-dark: #7928CA;
+      --footer-white: #ffffff;
+      --footer-white-90: rgba(255, 255, 255, 0.9);
+      --footer-white-85: rgba(255, 255, 255, 0.85);
+      --footer-white-70: rgba(255, 255, 255, 0.7);
+      --footer-white-50: rgba(255, 255, 255, 0.5);
+      --footer-white-30: rgba(255, 255, 255, 0.3);
+      --footer-white-15: rgba(255, 255, 255, 0.15);
+      --footer-white-10: rgba(255, 255, 255, 0.1);
+      --footer-white-05: rgba(255, 255, 255, 0.05);
+      --footer-max-width: 1440px;
+      --footer-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --footer-transition-bounce: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    }
+
+    :root,
+    [data-theme="light"] {
+      --footer-bg-start: var(--footer-teal);
+      --footer-bg-mid: var(--footer-teal-mid);
+      --footer-bg-end: var(--footer-teal-dark);
+      --footer-accent: var(--footer-orange);
+      --footer-accent-hover: var(--footer-orange-dark);
+      --footer-btn-bg: linear-gradient(135deg, var(--footer-orange) 0%, var(--footer-orange-dark) 100%);
+      --footer-glow: var(--footer-orange);
+      --modal-bg: linear-gradient(135deg, rgba(26, 74, 82, 0.95) 0%, rgba(42, 107, 117, 0.9) 100%);
+      --modal-border: rgba(74, 171, 184, 0.3);
+      --modal-accent: var(--footer-orange)
+    }
+
+    [data-theme="dark"] {
+      --footer-bg-start: #1a1a2e;
+      --footer-bg-mid: #16213e;
+      --footer-bg-end: #0f1c2e;
+      --footer-accent: var(--footer-purple);
+      --footer-accent-hover: var(--footer-purple-dark);
+      --footer-btn-bg: linear-gradient(135deg, var(--footer-purple) 0%, var(--footer-purple-dark) 100%);
+      --footer-glow: var(--footer-purple);
+      --modal-bg: linear-gradient(135deg, #0a0e27 0%, #1a0033 100%);
+      --modal-border: rgba(153, 69, 255, 0.3);
+      --modal-accent: var(--footer-purple)
+    }
+
+    .mbx-footer {
+      background: linear-gradient(180deg, var(--footer-bg-start) 0%, rgba(51, 153, 153, 0.95) 20%, var(--footer-bg-mid) 45%, rgba(44, 139, 139, 0.98) 55%, var(--footer-bg-end) 100%);
+      color: var(--footer-white);
+      position: relative;
+      overflow: hidden;
+      padding: 64px 0 32px;
+      flex-shrink: 0;
+      margin-top: auto;
+      transition: background 0.6s cubic-bezier(0.23, 1, 0.32, 1)
+    }
+
+    .mbx-footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at top right, rgba(74, 236, 220, 0.08) 0%, transparent 50%), radial-gradient(ellipse at bottom left, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .mbx-footer-container {
+      position: relative;
+      z-index: 2;
+      max-width: var(--footer-max-width);
+      margin: 0 auto;
+      padding: 0 40px
+    }
+
+    .mbx-3d-accent {
+      position: absolute;
+      bottom: 20px;
+      right: 5%;
+      width: 300px;
+      height: 300px;
+      pointer-events: none;
+      opacity: 0.15;
+      transition: opacity 0.6s ease;
+      z-index: 1;
+      filter: drop-shadow(0 0 40px var(--footer-glow));
+      animation: floatAnimation 4s ease-in-out infinite
+    }
+
+    @keyframes floatAnimation {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-6px)
+      }
+    }
+
+    .mbx-footer:hover .mbx-3d-accent {
+      opacity: 0.25
+    }
+
+    .mbx-3d-accent model-viewer {
+      width: 100%;
+      height: 100%;
+      background: transparent
+    }
+
+    .mbx-footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px
+    }
+
+    .mbx-footer-brand {
+      grid-column: 1
+    }
+
+    .mbx-footer-logo {
+      display: inline-block;
+      margin-bottom: 12px;
+      transition: var(--footer-transition);
+      text-decoration: none
+    }
+
+    .mbx-footer-logo img {
+      width: 220px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.3));
+      transition: var(--footer-transition);
+      will-change: transform
+    }
+
+    .mbx-footer-logo:hover img {
+      transform: translateY(-4px) scale(1.03);
+      filter: drop-shadow(0 8px 24px var(--footer-glow))
+    }
+
+    .mbx-footer-social {
+      display: inline-flex;
+      gap: 12px;
+      margin-bottom: 20px
+    }
+
+    .mbx-social-link {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--footer-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--footer-accent);
+      text-decoration: none;
+      transition: var(--footer-transition);
+      background: rgba(255, 107, 53, 0.1);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    .mbx-social-link::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: var(--footer-accent);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s
+    }
+
+    .mbx-social-link:hover::before {
+      width: 100%;
+      height: 100%
+    }
+
+    .mbx-social-link:hover {
+      color: var(--footer-white);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 107, 53, 0.35)
+    }
+
+    .mbx-social-link svg {
+      position: relative;
+      z-index: 1;
+      width: 20px;
+      height: 20px
+    }
+
+    .mbx-footer-brand p {
+      font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.7;
+      color: var(--footer-white-85);
+      max-width: 480px;
+      margin-bottom: 20px;
+      font-weight: 500
+    }
+
+    .mbx-footer-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px
+    }
+
+    .mbx-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: var(--footer-transition-bounce);
+      cursor: pointer;
+      border: none;
+      min-height: 48px;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.3px
+    }
+
+    .mbx-btn-primary {
+      background: var(--footer-btn-bg);
+      color: var(--footer-white);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25)
+    }
+
+    .mbx-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3)
+    }
+
+    .mbx-btn-outline {
+      color: var(--footer-accent);
+      background: transparent;
+      border: 2px solid var(--footer-accent)
+    }
+
+    .mbx-btn-outline:hover {
+      color: var(--footer-white);
+      background: var(--footer-accent);
+      transform: translateY(-2px)
+    }
+
+    .mbx-newsletter {
+      margin-top: 16px;
+      padding: 20px;
+      background: var(--footer-white-10);
+      border-radius: 16px;
+      border: 1px solid var(--footer-white-15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px)
+    }
+
+    .mbx-newsletter h4 {
+      color: var(--footer-white);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px
+    }
+
+    .mbx-newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px
+    }
+
+    .mbx-newsletter-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid var(--footer-white-30);
+      border-radius: 10px;
+      background: var(--footer-white-10);
+      color: var(--footer-white);
+      font-size: 14px;
+      transition: var(--footer-transition);
+      font-family: 'Inter', sans-serif
+    }
+
+    .mbx-newsletter-input::placeholder {
+      color: var(--footer-white-70)
+    }
+
+    .mbx-newsletter-input:focus {
+      outline: none;
+      border-color: var(--footer-accent);
+      background: var(--footer-white-15);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2)
+    }
+
+    .mbx-newsletter-btn {
+      padding: 12px 20px;
+      background: var(--footer-accent);
+      color: var(--footer-white);
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: var(--footer-transition);
+      letter-spacing: 0.3px;
+      white-space: nowrap
+    }
+
+    .mbx-newsletter-btn:hover {
+      background: var(--footer-accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25)
+    }
+
+    .mbx-footer-column h4 {
+      color: var(--footer-white);
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px
+    }
+
+    .mbx-footer-column:nth-child(2) h4,
+    .mbx-footer-column:nth-child(3) h4,
+    .mbx-footer-column:nth-child(4) h4 {
+      color: var(--footer-accent);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+    }
+
+    .mbx-footer-links {
+      list-style: none
+    }
+
+    .mbx-footer-links li {
+      margin-bottom: 12px
+    }
+
+    .mbx-footer-links a {
+      color: var(--footer-white-70);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: var(--footer-transition);
+      position: relative;
+      display: inline-block
+    }
+
+    .mbx-footer-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      background: var(--footer-accent);
+      transition: width 0.3s ease
+    }
+
+    .mbx-footer-links a:hover {
+      color: var(--footer-accent);
+      transform: translateX(4px)
+    }
+
+    .mbx-footer-links a:hover::after {
+      width: 100%
+    }
+
+    .mbx-footer-bottom {
+      padding-top: 28px;
+      border-top: 1px solid var(--footer-white-15);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      text-align: center
+    }
+
+    .mbx-footer-legal {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center
+    }
+
+    .mbx-footer-legal a {
+      color: var(--footer-white-70);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: var(--footer-transition);
+      position: relative
+    }
+
+    .mbx-footer-legal a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--footer-accent);
+      transition: width 0.3s ease
+    }
+
+    .mbx-footer-legal a:hover {
+      color: var(--footer-accent)
+    }
+
+    .mbx-footer-legal a:hover::after {
+      width: 100%
+    }
+
+    .mbx-footer-copyright {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--footer-white-70)
+    }
+
+    @media(max-width:1024px) {
+      .mbx-footer-container {
+        padding: 0 32px
+      }
+
+      .mbx-footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px
+      }
+
+      .mbx-footer-brand {
+        grid-column: 1/-1
+      }
+
+      .mbx-3d-accent {
+        width: 250px;
+        height: 250px;
+        right: 2%
+      }
+    }
+
+    @media(max-width:768px) {
+      .mbx-footer {
+        padding: 60px 0 32px
+      }
+
+      .mbx-footer-container {
+        padding: 0 20px
+      }
+
+      .mbx-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px
+      }
+
+      .mbx-footer-logo img {
+        width: 180px
+      }
+
+      .mbx-3d-accent {
+        width: 200px;
+        height: 200px;
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 10px
+      }
+
+      .mbx-footer-bottom {
+        flex-direction: column;
+        text-align: center
+      }
+
+      .mbx-footer-legal {
+        justify-content: center
+      }
+
+      .mbx-footer-cta {
+        flex-direction: column
+      }
+
+      .mbx-btn {
+        width: 100%
+      }
+
+      .mbx-newsletter-form {
+        flex-direction: column
+      }
+
+      .mbx-newsletter-input,
+      .mbx-newsletter-btn {
+        width: 100%
+      }
+    }
+
+    @media(max-width:480px) {
+      .mbx-footer-logo img {
+        width: 150px
+      }
+
+      .mbx-newsletter {
+        padding: 16px
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important
+      }
+
+      .mbx-3d-accent {
+        animation: none
+      }
+    }
+
+
+    .mbx-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 27, 30, 0.9);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100000;
+      opacity: 0;
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 1rem
+    }
+
+    .mbx-modal-backdrop.active {
+      display: flex;
+      opacity: 1
+    }
+
+    .mbx-modal {
+      width: min(720px, 95vw);
+      max-height: 95vh;
+      background: var(--modal-bg);
+      border-radius: 20px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+      border: 1.5px solid var(--modal-border);
+      overflow: hidden;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    [data-theme="dark"] .mbx-modal {
+      box-shadow: 0 0 100px rgba(153, 69, 255, 0.2), 0 24px 48px rgba(0, 0, 0, 0.5)
+    }
+
+    .mbx-modal-backdrop.active .mbx-modal {
+      transform: scale(1) translateY(0)
+    }
+
+    .mbx-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--footer-white-10);
+      background: var(--footer-white-05);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    [data-theme="dark"] .mbx-modal-header {
+      border-bottom: 1px solid rgba(153, 69, 255, 0.2)
+    }
+
+    .mbx-modal-title {
+      font-weight: 800;
+      color: var(--footer-white);
+      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+      margin: 0;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .mbx-modal-subtitle {
+      color: var(--footer-white-85);
+      font-size: 0.875rem;
+      margin-top: 0.125rem;
+      line-height: 1.3;
+    }
+
+    .mbx-modal-close {
+      appearance: none;
+      border: 0;
+      background: var(--footer-white-10);
+      cursor: pointer;
+      padding: 0;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      color: var(--footer-white-70);
+      transition: var(--footer-transition-bounce);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .mbx-modal-close:hover {
+      background: rgba(255, 107, 0, 0.2);
+      color: var(--modal-accent);
+      transform: rotate(90deg)
+    }
+
+    [data-theme="dark"] .mbx-modal-close:hover {
+      background: rgba(153, 69, 255, 0.2)
+    }
+
+    .mbx-modal-body {
+      padding: 1.5rem;
+      overflow-y: visible;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .mbx-form-group {
+      margin-bottom: 0.75rem
+    }
+
+    .mbx-form-input {
+      width: 100%;
+      padding: 0.625rem 0.75rem;
+      background: rgba(26, 74, 82, 0.3);
+      border: 1.5px solid rgba(74, 171, 184, 0.3);
+      border-radius: 8px;
+      color: var(--footer-white);
+      font-size: 0.875rem;
+      transition: var(--footer-transition);
+      font-family: 'Inter', sans-serif
+    }
+
+    [data-theme="dark"] .mbx-form-input {
+      background: rgba(153, 69, 255, 0.1);
+      border: 1.5px solid rgba(153, 69, 255, 0.3)
+    }
+
+    .mbx-form-input::placeholder {
+      color: var(--footer-white-50)
+    }
+
+    .mbx-form-input:focus {
+      outline: none;
+      border-color: var(--modal-accent);
+      background: rgba(26, 74, 82, 0.4);
+      box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2)
+    }
+
+    [data-theme="dark"] .mbx-form-input:focus {
+      background: rgba(153, 69, 255, 0.15);
+      box-shadow: 0 0 20px rgba(153, 69, 255, 0.3)
+    }
+
+    .mbx-donate-submit,
+    .mbx-join-submit {
+      width: 100%;
+      padding: 0.875rem;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.65) 0%, rgba(255, 122, 0, 0.55) 100%);
+      color: var(--footer-white);
+      border: 2px solid rgba(255, 107, 53, 0.85);
+      border-radius: 12px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--footer-transition-bounce);
+      margin-top: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(255, 107, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
+    }
+
+    .mbx-donate-submit:hover:not(:disabled),
+    .mbx-join-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.75) 0%, rgba(255, 122, 0, 0.65) 100%);
+      border-color: rgba(255, 122, 0, 0.95);
+      box-shadow: 0 12px 32px rgba(255, 107, 0, 0.45), 0 0 45px rgba(255, 107, 53, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.3)
+    }
+
+    .mbx-donate-submit:disabled,
+    .mbx-join-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed
+    }
+
+    .mbx-loading {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem
+    }
+
+    .mbx-loading.active {
+      display: flex
+    }
+
+    .mbx-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--footer-white-30);
+      border-top-color: var(--footer-white);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .mbx-error {
+      color: #ff6b6b;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: none
+    }
+
+    .mbx-error.show {
+      display: block
+    }
+
+    .mbx-success-message {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(33, 196, 140, 0.2), rgba(33, 196, 140, 0.1));
+      border: 1px solid rgba(33, 196, 140, 0.4);
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden
+    }
+
+    .mbx-success-message.show {
+      display: block;
+      animation: successPulse 0.6s ease-out
+    }
+
+    @keyframes successPulse {
+      0% {
+        transform: scale(0.9);
+        opacity: 0
+      }
+
+      50% {
+        transform: scale(1.05)
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .mbx-application-section,
+    .mbx-join-section {
+      margin-bottom: 1.5rem
+    }
+
+    .mbx-section-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--footer-white);
+      margin-bottom: 1rem;
+      letter-spacing: -0.2px;
+      text-transform: uppercase;
+      opacity: 0.9
+    }
+
+    .mbx-option-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--footer-white);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.2px;
+      line-height: 1.3;
+    }
+    
+    .mbx-donate-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    
+    .mbx-frequency-toggle {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .mbx-frequency-btn {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      background: rgba(26, 74, 82, 0.3);
+      border: 1.5px solid rgba(74, 171, 184, 0.3);
+      border-radius: 8px;
+      color: var(--footer-white);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .mbx-frequency-btn.active {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.25) 0%, rgba(255, 122, 0, 0.2) 100%);
+      border-color: #FF6B35;
+      color: #fff;
+    }
+    
+    .mbx-name-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .mbx-donor-info {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .mbx-donate-options {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mbx-checkbox {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--modal-accent);
+      cursor: pointer
+    }
+
+    textarea.mbx-form-input {
+      min-height: 100px;
+      resize: vertical
+    }
+
+    /* Amount Selection Buttons - Improved Styling */
+    .mbx-amount-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .mbx-amount-btn {
+      padding: 0.625rem 0.75rem;
+      background: rgba(26, 74, 82, 0.3);
+      border: 1.5px solid rgba(74, 171, 184, 0.3);
+      border-radius: 8px;
+      color: var(--footer-white);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mbx-amount-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 122, 0, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .mbx-amount-btn:hover {
+      border-color: rgba(255, 107, 53, 0.5);
+      background: rgba(26, 74, 82, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+    }
+
+    .mbx-amount-btn:hover::before {
+      opacity: 1;
+    }
+
+    .mbx-amount-btn.selected {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.25) 0%, rgba(255, 122, 0, 0.2) 100%);
+      border-color: #FF6B35;
+      color: #fff;
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2), 0 4px 12px rgba(255, 107, 53, 0.3);
+      font-weight: 700;
+    }
+
+    .mbx-amount-btn.selected::before {
+      opacity: 1;
+    }
+
+    .mbx-amount-btn.custom-btn {
+      grid-column: 1 / -1;
+      background: rgba(255, 107, 53, 0.1);
+      border-color: rgba(255, 107, 53, 0.4);
+    }
+
+    .mbx-amount-btn.custom-btn:hover {
+      background: rgba(255, 107, 53, 0.2);
+      border-color: rgba(255, 107, 53, 0.6);
+    }
+
+    .mbx-amount-btn.custom-btn.selected {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.3) 0%, rgba(255, 122, 0, 0.25) 100%);
+      border-color: #FF6B35;
+    }
+
+    [data-theme="dark"] .mbx-amount-btn {
+      background: rgba(153, 69, 255, 0.1);
+      border-color: rgba(153, 69, 255, 0.3);
+    }
+
+    [data-theme="dark"] .mbx-amount-btn:hover {
+      border-color: rgba(153, 69, 255, 0.5);
+      background: rgba(153, 69, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(153, 69, 255, 0.2);
+    }
+
+    [data-theme="dark"] .mbx-amount-btn.selected {
+      background: linear-gradient(135deg, rgba(153, 69, 255, 0.25) 0%, rgba(153, 69, 255, 0.2) 100%);
+      border-color: #9945FF;
+      box-shadow: 0 0 0 3px rgba(153, 69, 255, 0.2), 0 4px 12px rgba(153, 69, 255, 0.3);
+    }
+
+    /* Custom Amount Input */
+    .mbx-custom-amount-wrapper {
+      margin-bottom: 0.75rem;
+    }
+
+    .mbx-custom-amount {
+      width: 100%;
+      padding: 0.625rem 0.75rem;
+      background: rgba(26, 74, 82, 0.3);
+      border: 1.5px solid rgba(74, 171, 184, 0.3);
+      border-radius: 8px;
+      color: var(--footer-white);
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 0.375rem;
+    }
+
+    .mbx-custom-amount:focus {
+      outline: none;
+      border-color: #FF6B35;
+      background: rgba(26, 74, 82, 0.4);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2), 0 4px 12px rgba(255, 107, 53, 0.2);
+    }
+
+    .mbx-custom-amount.has-value {
+      border-color: #FF6B35;
+      background: rgba(26, 74, 82, 0.4);
+    }
+
+    [data-theme="dark"] .mbx-custom-amount {
+      background: rgba(153, 69, 255, 0.1);
+      border-color: rgba(153, 69, 255, 0.3);
+    }
+
+    [data-theme="dark"] .mbx-custom-amount:focus {
+      border-color: #9945FF;
+      background: rgba(153, 69, 255, 0.15);
+      box-shadow: 0 0 0 3px rgba(153, 69, 255, 0.2), 0 4px 12px rgba(153, 69, 255, 0.2);
+    }
+
+    .mbx-amount-hint {
+      font-size: 0.75rem;
+      color: var(--footer-white-70);
+      margin-top: 0.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .mbx-amount-hint.show {
+      color: var(--footer-white-90);
+    }
+
+    @media(max-width:1024px) {
+      .mbx-donate-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:768px) {
+      .mbx-amount-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important
+      }
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--footer-accent);
+      outline-offset: 2px;
+      border-radius: 4px
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="preload" as="image"
+    href="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/e6e1daec-6dcd-4269-eaf0-820275984a00/public"
+    type="image/webp">
+  <style>
+    :root {
+      --teal: #339999;
+      --orange: #FF6B35;
+      --orange-dark: #E85D00;
+      --purple: #9B59B6;
+      --mint: #4AECDC;
+      --nav-h: 72px;
+      --nav-hs: 60px;
+      --max-w: 1440px;
+      --tr: all .3s cubic-bezier(.4, 0, .2, 1);
+      --sidenav-w: 320px;
+    }
+
+    [data-theme=light] {
+      --nav-bg: rgba(255, 255, 255, .75);
+      --nav-bg-scrolled: rgba(255, 255, 255, .85);
+      --nav-border: rgba(255, 107, 53, .15);
+      --nav-text: #0C2D31;
+      --nav-link: #FF6B35;
+      --nav-hover: #E85D00;
+      --nav-hover-bg: rgba(255, 107, 53, .08);
+      --mobile-bg: rgba(255, 255, 255, .90);
+      --btn-bg: #FF6B35;
+      --btn-hover: #E85D00;
+      --accent: #FF6B35;
+      --sidenav-bg: rgba(255, 255, 255, .95);
+      --sidenav-overlay: rgba(0, 0, 0, .4);
+      --divider: rgba(12, 45, 49, .1);
+    }
+
+    [data-theme=dark] {
+      --nav-bg: rgba(12, 45, 49, .75);
+      --nav-bg-scrolled: rgba(12, 45, 49, .85);
+      --nav-border: rgba(74, 236, 220, .2);
+      --nav-text: rgba(255, 255, 255, .95);
+      --nav-link: #4AECDC;
+      --nav-hover: #5FDDDC;
+      --nav-hover-bg: rgba(74, 236, 220, .1);
+      --mobile-bg: rgba(12, 45, 49, .90);
+      --btn-bg: #9B59B6;
+      --btn-hover: #8E44AD;
+      --accent: #4AECDC;
+      --sidenav-bg: rgba(12, 45, 49, .95);
+      --sidenav-overlay: rgba(0, 0, 0, .6);
+      --divider: rgba(74, 236, 220, .15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      padding-top: var(--nav-h);
+      color: #0C2D31;
+      line-height: 1.6;
+      min-height: 100vh;
+      background: #ffffff;
+    }
+
+    [data-theme=dark] body {
+      background: #0a1f22;
+      color: rgba(255, 255, 255, .95);
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      z-index: 10001;
+      transition: var(--tr);
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      z-index: 9999;
+      transition: var(--tr);
+    }
+
+    .nav.scrolled {
+      height: var(--nav-hs);
+      background: var(--nav-bg-scrolled);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+    }
+
+    .nav-container {
+      max-width: var(--max-w);
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: var(--tr);
+    }
+
+    .nav-logo:hover {
+      transform: scale(.98);
+    }
+
+    .nav-logo:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    .nav-logo picture {
+      display: block;
+      width: 180px;
+      height: auto;
+      transition: var(--tr);
+    }
+
+    .nav-logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .nav.scrolled .nav-logo picture {
+      width: 160px;
+    }
+
+    [data-theme=dark] .nav-logo img {
+      filter: hue-rotate(220deg) saturate(1.2) brightness(1.1);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      height: 100%;
+    }
+
+    .nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 10px 18px;
+      color: var(--nav-link);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: var(--tr);
+      white-space: nowrap;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 18px;
+      right: 18px;
+      height: 0;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: height .3s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .nav-link:hover {
+      color: var(--nav-hover);
+      background: var(--nav-hover-bg);
+    }
+
+    .nav-link.active,
+    .nav-link[aria-current=page] {
+      color: var(--nav-hover);
+      font-weight: 700;
+    }
+
+    .nav-link.active::after,
+    .nav-link[aria-current=page]::after {
+      height: 3px;
+    }
+
+    .nav-donate {
+      margin-left: 12px;
+      padding: 11px 26px;
+      background: var(--btn-bg);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--tr);
+      min-height: 44px;
+      letter-spacing: .4px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-donate:hover {
+      background: var(--btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .burger {
+      display: none;
+      background: transparent;
+      border: 0;
+      padding: 8px;
+      cursor: pointer;
+      position: relative;
+      z-index: 10001;
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 8px;
+      transition: var(--tr);
+    }
+
+    .burger:hover {
+      background: var(--nav-hover-bg);
+    }
+
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 3px;
+      background: var(--nav-link);
+      margin: 4px 0;
+      transition: var(--tr);
+      border-radius: 2px;
+    }
+
+    .burger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .sidenav-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--sidenav-overlay);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s ease, visibility .3s ease;
+      z-index: 9997;
+    }
+
+    .sidenav-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .sidenav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: var(--sidenav-w);
+      background: var(--sidenav-bg);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-left: 1px solid var(--nav-border);
+      transform: translateX(100%);
+      transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+      z-index: 9998;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, .1);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .sidenav.open {
+      transform: translateX(0);
+    }
+
+    .sidenav-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--divider);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: var(--nav-h);
+    }
+
+    .sidenav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: var(--tr);
+    }
+
+    .sidenav-logo:hover {
+      transform: scale(.98);
+    }
+
+    .sidenav-logo picture {
+      display: block;
+      width: 180px;
+      height: auto;
+    }
+
+    .sidenav-logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    [data-theme=dark] .sidenav-logo img {
+      filter: hue-rotate(220deg) saturate(1.2) brightness(1.1);
+    }
+
+    .sidenav-close {
+      background: transparent;
+      border: 0;
+      padding: 10px;
+      cursor: pointer;
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 8px;
+      transition: var(--tr);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidenav-close:hover {
+      background: var(--nav-hover-bg);
+    }
+
+    .sidenav-close-icon {
+      width: 24px;
+      height: 24px;
+      position: relative;
+    }
+
+    .sidenav-close-icon::before,
+    .sidenav-close-icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2.5px;
+      background: var(--nav-link);
+      border-radius: 2px;
+    }
+
+    .sidenav-close-icon::before {
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .sidenav-close-icon::after {
+      transform: translateY(-50%) rotate(-45deg);
+    }
+
+    .sidenav-content {
+      flex: 1;
+      padding: 8px 0;
+    }
+
+    .sidenav-section {
+      padding: 0 24px;
+      margin-bottom: 32px;
+    }
+
+    .sidenav-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--nav-link);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding: 0 8px;
+    }
+
+    .sidenav-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      list-style: none;
+    }
+
+    .sidenav-link {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: var(--tr);
+      letter-spacing: 0.1px;
+      min-height: 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidenav-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+      transform: translateX(-100%);
+      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .sidenav-link:hover {
+      background: var(--nav-hover-bg);
+      color: var(--nav-hover);
+    }
+
+    .sidenav-link.active {
+      background: var(--nav-hover-bg);
+      color: var(--nav-hover);
+      font-weight: 700;
+    }
+
+    .sidenav-link.active::before {
+      transform: translateX(0);
+    }
+
+    .sidenav-footer {
+      padding: 24px;
+      border-top: 1px solid var(--divider);
+    }
+
+    .sidenav-donate {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 24px;
+      background: var(--btn-bg);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--tr);
+      min-height: 56px;
+      letter-spacing: .5px;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .sidenav-donate:hover {
+      background: var(--btn-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, .4);
+    }
+
+    [data-theme=dark] .sidenav-donate:hover {
+      box-shadow: 0 6px 20px rgba(155, 89, 182, .4);
+    }
+
+    @media (max-width: 980px) {
+      .nav-container {
+        padding: 0 20px;
+      }
+
+      .nav-menu,
+      .nav-donate {
+        display: none;
+      }
+
+      .burger {
+        display: block;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-container {
+        padding: 0 16px;
+      }
+
+      .nav-logo picture {
+        width: 150px;
+      }
+
+      .nav.scrolled .nav-logo picture {
+        width: 135px;
+      }
+
+      .sidenav {
+        width: min(var(--sidenav-w), 85vw);
+      }
+    }
+
+    @media (max-width: 380px) {
+      .nav-logo picture {
+        width: 130px;
+      }
+
+      .nav.scrolled .nav-logo picture {
+        width: 120px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Stripe Card Element Styling - Ensure it's typeable */
+    #mbx-card-element {
+      padding: 12px !important;
+      background: rgba(26, 74, 82, 0.3) !important;
+      border: 1.5px solid rgba(74, 171, 184, 0.3) !important;
+      border-radius: 10px !important;
+      min-height: 50px !important;
+      transition: all 0.3s ease !important;
+    }
+
+    #mbx-card-element:focus-within {
+      border-color: #FF6B35 !important;
+      background: rgba(26, 74, 82, 0.4) !important;
+      box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2) !important;
+    }
+
+    #mbx-card-element .StripeElement {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    #mbx-card-element iframe {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    [data-theme="dark"] #mbx-card-element {
+      background: rgba(153, 69, 255, 0.1) !important;
+      border: 1.5px solid rgba(153, 69, 255, 0.3) !important;
+    }
+
+    [data-theme="dark"] #mbx-card-element:focus-within {
+      background: rgba(153, 69, 255, 0.15) !important;
+      box-shadow: 0 0 20px rgba(153, 69, 255, 0.3) !important;
+    }
+  </style>
 </head>
 
-<body>
-    <div id="root"></div>
+<body data-theme="light">
+  <!-- Header Component v5 - Optimized from About-Us Page with Sidenav -->
+
+
+
+
+
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="nav" id="nav" role="banner">
+    <div class="nav-container">
+      <a href="/dashboard" class="nav-logo" aria-label="Meauxbility Home">
+        <picture>
+          <source srcset="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/e6e1daec-6dcd-4269-eaf0-820275984a00/public"
+            type="image/webp">
+          <img src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/e6e1daec-6dcd-4269-eaf0-820275984a00/public"
+            alt="Meauxbility" width="180" height="180" loading="eager" fetchpriority="high">
+        </picture>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-menu">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/about-us">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/mobility-grants-programs">Programs</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/community">Community</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/resources">Resources</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/get-involved">Connect</a></li>
+          <li class="nav-item"><a class="nav-donate" href="/pages/donate">Impact</a></li>
+        </ul>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="sidenav-overlay" id="sidenavOverlay" aria-hidden="true"></div>
+  <nav class="sidenav" id="sidenav" aria-label="Mobile navigation">
+    <div class="sidenav-header">
+      <a href="/dashboard" class="sidenav-logo" aria-label="Meauxbility Home">
+        <picture>
+          <source srcset="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/e6e1daec-6dcd-4269-eaf0-820275984a00/public"
+            type="image/webp">
+          <img src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/e6e1daec-6dcd-4269-eaf0-820275984a00/public"
+            alt="Meauxbility" width="180" height="180" loading="lazy">
+        </picture>
+      </a>
+      <button class="sidenav-close" id="sidenavClose" aria-label="Close navigation menu">
+        <span class="sidenav-close-icon"></span>
+      </button>
+    </div>
+    <div class="sidenav-content">
+      <div class="sidenav-section">
+        <h2 class="sidenav-section-title">Main Menu</h2>
+        <ul class="sidenav-nav">
+          <li><a href="/" class="sidenav-link"><span>Home</span></a></li>
+          <li><a href="/pages/about-us" class="sidenav-link"><span>About</span></a></li>
+          <li><a href="/pages/mobility-grants-programs" class="sidenav-link"><span>Programs</span></a></li>
+          <li><a href="/pages/community" class="sidenav-link"><span>Community</span></a></li>
+          <li><a href="/pages/resources" class="sidenav-link"><span>Resources</span></a></li>
+          <li><a href="/pages/get-involved" class="sidenav-link"><span>Connect</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sidenav-footer">
+      <a class="sidenav-donate" href="/pages/donate">
+        <span>Make an Impact</span>
+      </a>
+    </div>
+  </nav>
+
+  <script nonce="MzAzMDYzODE2NCwxNzkzMDc0MDk1">
+    (() => {
+      const $ = s => document.querySelector(s);
+      const $$ = s => document.querySelectorAll(s);
+      const body = document.body;
+
+      // Theme initialization based on page
+      const darkPages = ['about', 'community', 'resources'];
+      function initTheme() {
+        const path = location.pathname;
+        let theme = 'light';
+        darkPages.forEach(p => { if (path.includes(p)) theme = 'dark' });
+        document.documentElement.setAttribute('data-theme', theme);
+        body.setAttribute('data-theme', theme);
+      }
+      initTheme();
+
+      const nav = $('#nav');
+      addEventListener('scroll', () => nav.classList.toggle('scrolled', pageYOffset > 50), { passive: true });
+
+      const burger = $('#burger');
+      const sidenav = $('#sidenav');
+      const overlay = $('#sidenavOverlay');
+      const closeBtn = $('#sidenavClose');
+
+      function openSidenav() {
+        burger.classList.add('open');
+        burger.setAttribute('aria-expanded', 'true');
+        burger.setAttribute('aria-label', 'Close navigation menu');
+        sidenav.classList.add('open');
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        body.classList.add('modal-open');
+        sidenav.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeSidenav() {
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Toggle navigation menu');
+        sidenav.classList.remove('open');
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        body.classList.remove('modal-open');
+        sidenav.setAttribute('aria-hidden', 'true');
+      }
+
+      burger.addEventListener('click', () => {
+        const isOpen = burger.classList.contains('open');
+        isOpen ? closeSidenav() : openSidenav();
+      });
+
+      closeBtn.addEventListener('click', closeSidenav);
+      overlay.addEventListener('click', closeSidenav);
+
+      $$('.sidenav-link,.sidenav-donate').forEach(l =>
+        l.addEventListener('click', () => setTimeout(closeSidenav, 150))
+      );
+
+      function setActive() {
+        const path = location.pathname;
+        $$('.nav-link,.sidenav-link').forEach(l => {
+          l.classList.remove('active');
+          l.removeAttribute('aria-current');
+          const href = l.getAttribute('href');
+          if (href === path || (path === '/' && href === '/')) {
+            l.classList.add('active');
+            l.setAttribute('aria-current', 'page');
+          }
+        });
+      }
+
+      addEventListener('DOMContentLoaded', () => { setActive(); initTheme() });
+      addEventListener('popstate', () => { setActive(); initTheme() });
+      addEventListener('keydown', e => { if (e.key === 'Escape' && sidenav.classList.contains('open')) closeSidenav() });
+    })();
+  </script>
+
+
+
+  <main id="main">
+
+    <section class="meauxxxAnnouncement">
+      <div class="meauxxxContainer">
+        <div class="meauxxxAnnouncementWrapper">
+          <div class="meauxxxAnnouncementTrack">
+            <span class="meauxxxAnnouncementText">MORE OPTIONS <span class="meauxxxAnnouncementDot"></span> MORE ACCESS
+              <span class="meauxxxAnnouncementDot"></span> MORE LIFE</span>
+            <span class="meauxxxAnnouncementText">MORE OPTIONS <span class="meauxxxAnnouncementDot"></span> MORE ACCESS
+              <span class="meauxxxAnnouncementDot"></span> MORE LIFE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="meauxxxHero">
+      <div class="meauxxxContainer">
+        <div class="meauxxxHeroContent">
+          <div class="meauxxxHeroMedia" id="meauxxxHeroMedia">
+            <img id="meauxxxHeroImg"
+              src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/30ac1d8b-8ce0-43dd-63ec-1c0d7f169000/hero"
+              alt="Sam Primeaux, Meauxbility founder, at Pikes Peak celebrating recovery and mobility independence"
+              loading="eager" width="860" height="600" fetchpriority="high">
+          </div>
+          <h1 class="meauxxxHeadingXL meauxxxHeroTitle">Built by a survivor for survivors.</h1>
+          <p class="meauxxxTextLead meauxxxHeroDescription">
+            We connect people with <span class="meauxxxTextHighlight">spinal cord injuries</span> to the
+            <span class="meauxxxTextHighlight">treatments</span>,
+            <span class="meauxxxTextHighlight">technology</span>, and
+            <span class="meauxxxTextHighlight">community</span> that change outcomes.
+          </p>
+          <div class="meauxxxButtonGroup">
+            <button class="meauxxxButton meauxxxButtonPrimary" onclick="openApplicationModal()">Get Support</button>
+            <a href="https://meauxbility.org/pages/donmichael-our-first-campaign"
+              class="meauxxxButton meauxxxButtonSecondary">Our First Campaign</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="meauxxxValues">
+      <div class="meauxxxContainer">
+        <div class="meauxxxValuesHeader">
+          <h2 class="meauxxxHeadingLG">Why Meauxbility</h2>
+        </div>
+        <div class="meauxxxValuesGrid">
+          <article class="meauxxxValueCard" data-animate="fade-up">
+            <div class="meauxxxIconMorph" onclick="morphIcon(this)">
+              <img class="meauxxxValueIcon"
+                src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/d1a875d1-6c5d-43fd-d69c-bc0fb0201100/public"
+                alt="Meauxbility mission icon" width="180" height="180" loading="lazy">
+              <div class="meauxxxIconText">AMBITION</div>
+            </div>
+            <span class="meauxxxValueLabel">OUR MISSION</span>
+            <h3 class="meauxxxHeadingMD meauxxxValueTitle">Experience-Driven Recovery</h3>
+            <p class="meauxxxValueDescription">Founded by Sam Primeaux after his 2017 paralysis. We turn lived
+              experience into a roadmap others can follow to recovery.</p>
+          </article>
+          <article class="meauxxxValueCard" data-animate="fade-up" data-delay="100">
+            <div class="meauxxxIconMorph" onclick="morphIcon(this)">
+              <img class="meauxxxValueIcon"
+                src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/4401291c-140d-4e36-aa90-e04ee5c0ad00/public"
+                alt="Meauxbility empowerment icon" width="180" height="180" loading="lazy">
+              <div class="meauxxxIconText">EMPOWERMENT</div>
+            </div>
+            <span class="meauxxxValueLabel">EMPOWERMENT</span>
+            <h3 class="meauxxxHeadingMD meauxxxValueTitle">Transform Your Journey</h3>
+            <p class="meauxxxValueDescription">We combine funding, mentorship, and a practical recovery playbook so
+              people with mobility challenges can accelerate their progress.</p>
+          </article>
+          <article class="meauxxxValueCard" data-animate="fade-up" data-delay="200">
+            <div class="meauxxxIconMorph" onclick="morphIcon(this)">
+              <img class="meauxxxValueIcon"
+                src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/2d53fa70-2a84-4095-09ce-12bc348d7600/public"
+                alt="Meauxbility community icon" width="180" height="180" loading="lazy">
+              <div class="meauxxxIconText">ADAPTABILITY</div>
+            </div>
+            <span class="meauxxxValueLabel">COMMUNITY</span>
+            <h3 class="meauxxxHeadingMD meauxxxValueTitle">Stronger Together</h3>
+            <p class="meauxxxValueDescription">What began as one story is now a growing network creating more access—and
+              more life—together. Join the movement.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="meauxxxGap">
+      <div class="meauxxxContainer">
+        <div class="meauxxxGapHeader">
+          <h2 class="meauxxxHeadingLG">The Gap We're Closing</h2>
+          <p class="meauxxxTextLead">Three barriers stand between injury and independence. We're removing them.</p>
+        </div>
+        <div class="meauxxxGapGrid">
+          <article class="meauxxxGapCard" data-animate="fade-up">
+            <h3 class="meauxxxGapCardTitle">COST</h3>
+            <p class="meauxxxGapCardText">First-year SCI costs reach $1.4M. Lifetime up to $6.3M. We connect survivors
+              to funding and resources.</p>
+          </article>
+          <article class="meauxxxGapCard" data-animate="fade-up" data-delay="100">
+            <h3 class="meauxxxGapCardTitle">KNOWLEDGE</h3>
+            <p class="meauxxxGapCardText">18,400 new SCIs yearly. Families waste precious time searching. We provide
+              instant vetted guidance.</p>
+          </article>
+          <article class="meauxxxGapCard" data-animate="fade-up" data-delay="200">
+            <h3 class="meauxxxGapCardTitle">ACCESS</h3>
+            <p class="meauxxxGapCardText">Equipment exists but remains unreachable. We bridge the gap between innovation
+              and those who need it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="meauxxxCampaign">
+      <div class="meauxxxContainer">
+        <div class="meauxxxCampaignLayout">
+          <div class="meauxxxCampaignImage" id="meauxxxCampaignImage">
+            <img src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/67c82f16-3a70-4245-1b07-bef64ec54c00/public"
+              alt="DonMichael, Meauxbility campaign recipient living with Friedreich's ataxia" width="450" height="600"
+              loading="lazy">
+          </div>
+          <div class="meauxxxCampaignContent">
+            <div class="meauxxxCampaignNumber">01</div>
+            <h2 class="meauxxxHeadingLG">Help Fund DonMichael's New Beginning</h2>
+            <p class="meauxxxCampaignText">
+              Mobility challenges touch every part of life—freedom, opportunity, and dignity.
+              Our first initiative is raising <strong>$10,000</strong> to provide DonMichael,
+              living with Friedreich's ataxia, a custom wheelchair that truly fits his needs.
+            </p>
+            <p class="meauxxxCampaignText">
+              This isn't just equipment—it's independence, access, and the confidence to pursue life on his terms.
+            </p>
+            <div class="meauxxxProgress">
+              <div class="meauxxxProgressBar">
+                <div class="meauxxxProgressFill" id="meauxxxProgressBar" style="width: 0%;"></div>
+              </div>
+              <div class="meauxxxProgressText">
+                <span class="meauxxxProgressAmount" id="meauxxxProgressAmount">$0 raised</span>
+                <span>$10,000 goal</span>
+              </div>
+            </div>
+            <div class="meauxxxButtonGroup">
+              <button class="meauxxxButton meauxxxButtonPrimary" onclick="openDonateModal('donmichael')">Be DonMichael's
+                First Hero →</button>
+              <a href="https://meauxbility.org/pages/donmichael-our-first-campaign"
+                class="meauxxxButton meauxxxButtonSecondary">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="meauxxxMovement">
+      <div class="meauxxxContainer">
+        <div class="meauxxxMovementLayout">
+          <div class="meauxxxMovementImage" id="meauxxxMovementImage">
+            <img src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/cc0f2566-994e-4cfc-99e6-84c055bf7600/public"
+              alt="Sam Primeaux and Dustin Poirier from The Good Fight Foundation at a backpack drive event 2025"
+              loading="lazy" width="800" height="600">
+          </div>
+          <div class="meauxxxMovementContent">
+            <h2 class="meauxxxHeadingLG">The Meauxbility Movement</h2>
+            <p class="meauxxxTextLead">
+              What began as one story is now a growing network of people and partners creating more access—and more
+              life—together.
+            </p>
+            <p class="meauxxxTextBody" style="margin-bottom: 2rem;">
+              <strong>Join us.</strong> No one should face the hardest days alone.
+            </p>
+            <button class="meauxxxButton meauxxxButtonPrimary" onclick="openJoinCommunityModal()">Join Our
+              Community</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="meaux-partners" aria-labelledby="meaux-partners-h">
+      <div class="wave-transition">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="wave-path-1" d="M0,40 C240,80 480,20 720,40 C960,60 1200,20 1440,40 L1440,120 L0,120 Z"
+            fill="#339999" opacity="0.5" />
+          <path class="wave-path-2" d="M0,60 C240,90 480,30 720,60 C960,90 1200,30 1440,60 L1440,120 L0,120 Z"
+            fill="#339999" opacity="0.7" />
+          <path class="wave-path-3" d="M0,80 C240,100 480,60 720,80 C960,100 1200,60 1440,80 L1440,120 L0,120 Z"
+            fill="#339999" opacity="1" />
+        </svg>
+      </div>
+      <div class="wrap">
+        <h3 id="meaux-partners-h">Partners & Supporters</h3>
+        <div class="grid" id="partnersGrid">
+          <a class="logo" href="/pages/accessibility-partners" aria-label="Rise and Deano" data-state="a">
+            <div class="a"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/891c05d0-e85e-44d9-e68f-20636917d100/public')"></span>
+            </div>
+            <div class="b"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/8658e708-547b-44c8-5b99-f15ee238ca00/public')"></span>
+            </div>
+          </a>
+          <a class="logo" href="/pages/accessibility-partners" aria-label="Pablito and GFF" data-state="a">
+            <div class="a"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/0513c3c3-086a-4269-8bf2-deae25879400/public')"></span>
+            </div>
+            <div class="b"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/51a82ac6-e94d-4f1c-d59f-dfa71ddc4f00/public')"></span>
+            </div>
+          </a>
+          <a class="logo" href="/pages/accessibility-partners" aria-label="W4W and TC" data-state="a">
+            <div class="a"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/a2d07472-e75f-4eb3-c8de-8fe7332f7a00/public')"></span>
+            </div>
+            <div class="b"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/90d81a37-948f-4e04-42ad-6bc18bea4600/public')"></span>
+            </div>
+          </a>
+          <a class="logo" href="/pages/accessibility-partners" aria-label="NeuroElite and TU" data-state="a">
+            <div class="a"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/bba09ffe-5ad0-4a4b-b282-783c951a4800/public')"></span>
+            </div>
+            <div class="b"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/4b703d42-ed63-4724-8ef6-70dd19d9ab00/public')"></span>
+            </div>
+          </a>
+          <a class="logo" href="/pages/accessibility-partners" aria-label="AB and Apex" data-state="a">
+            <div class="a"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/8e3b09d9-8d7d-4fb5-996b-d524965d9a00/public')"></span>
+            </div>
+            <div class="b"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/d1b828d6-bf1d-466c-4ccd-6aea27e55300/public')"></span>
+            </div>
+          </a>
+          <a class="logo" href="/pages/accessibility-partners" aria-label="Barr and ATF" data-state="a">
+            <div class="a"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/9bd2f991-03be-4eda-26ea-c7c071b77600/public')"></span>
+            </div>
+            <div class="b"><span class="mask"
+                style="--src:url('https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/b43bb370-3d63-4dcd-974e-4b1dd795ee00/public')"></span>
+            </div>
+          </a>
+        </div>
+        <a class="cta" href="/pages/accessibility-partners">
+          <span>View All Partners</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mbx-footer" id="mbx-footer" role="contentinfo">
+    <div class="mbx-3d-accent" aria-hidden="true">
+      <model-viewer src="https://www.meauxbility.org/3d/meauxbility-accent.glb"
+        alt="Decorative 3D element - Meauxbility kinetic symmetry design" auto-rotate rotation-per-second="18deg"
+        camera-controls="false" disable-zoom disable-pan disable-tap interaction-prompt="none" shadow-intensity="0"
+        exposure="1.2" loading="lazy" reveal="auto" style="width:100%;height:100%;"></model-viewer>
+    </div>
+    <div class="mbx-footer-container">
+      <div class="mbx-footer-grid">
+        <div class="mbx-footer-brand">
+          <a href="/" class="mbx-footer-logo" aria-label="Meauxbility Home">
+            <picture>
+              <source
+                srcset="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/e6e1daec-6dcd-4269-eaf0-820275984a00/public"
+                type="image/webp">
+              <img src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/e6e1daec-6dcd-4269-eaf0-820275984a00/public"
+                alt="Meauxbility logo - 501(c)(3) nonprofit empowering mobility and independence for spinal cord injury survivors"
+                width="220" height="220" loading="lazy">
+            </picture>
+          </a>
+          <div class="mbx-footer-social" role="list">
+            <a class="mbx-social-link" aria-label="Facebook"
+              href="https://www.facebook.com/p/Meauxbility-61577795721851/" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+            <a class="mbx-social-link" aria-label="Instagram" href="https://www.instagram.com/meauxbility/"
+              target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 15.838a3.838 3.838 0 110-7.676 3.838 3.838 0 010 7.676zM18.406 5.594a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+              </svg>
+            </a>
+          </div>
+          <p>More Options. More Access. More Life. Join us as we transform obstacles into pathways for adaptive athletes
+            and spinal cord injury survivors.</p>
+          <div class="mbx-footer-cta">
+            <a class="mbx-btn mbx-btn-primary"
+              href="https://meauxbility.org/pages/donmichael-our-first-campaign">DonMichael's Campaign</a>
+            <button class="mbx-btn mbx-btn-outline" onclick="openDonateModal()">Donate Now</button>
+          </div>
+          <div class="mbx-newsletter">
+            <h4>Stay Connected</h4>
+            <p style="color:rgba(255,255,255,0.85);font-size:14px;margin-bottom:8px;">Get updates on our impact and ways
+              to help</p>
+            <form class="mbx-newsletter-form" id="mbx-newsletterForm">
+              <input type="email" class="mbx-newsletter-input" placeholder="Enter your email" required
+                aria-label="Email address">
+              <button type="submit" class="mbx-newsletter-btn">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="mbx-footer-column">
+          <h4>Resources</h4>
+          <ul class="mbx-footer-links" role="list">
+            <li><a href="https://meauxbility.org/pages/meauxbility-branding">Brand Guide</a></li>
+            <li><a href="https://meauxbility.org/pages/community">Community</a></li>
+            <li><a href="https://meauxbility.org/pages/news-media-features">Latest News</a></li>
+            <li><a href="https://meauxbility.org/pages/non-profit-information">501(c)(3) Info</a></li>
+          </ul>
+        </div>
+        <div class="mbx-footer-column">
+          <h4>Company</h4>
+          <ul class="mbx-footer-links" role="list">
+            <li><a href="https://meauxbility.org/pages/sam-primeaux">About Sam</a></li>
+            <li><a href="https://meauxbility.org/pages/team-meauxbility">Our Team</a></li>
+            <li><a href="https://meauxbility.org/pages/about-us">Our Mission</a></li>
+            <li><a href="https://meauxbility.org/pages/accessibility-partners">Partners</a></li>
+            <li><a href="https://meauxbility.org/pages/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="mbx-footer-column">
+          <h4>Support</h4>
+          <ul class="mbx-footer-links" role="list">
+            <li><a href="https://meauxbility.org/pages/faq">FAQ</a></li>
+            <li><a href="https://meauxbility.org/pages/donate">Ways to Give</a></li>
+            <li><a href="https://meauxbility.org/pages/get-involved">Get Involved</a></li>
+            <li><a href="https://meauxbility.org/pages/apply-for-funding">Apply for Grant</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mbx-footer-bottom">
+        <div class="mbx-footer-legal">
+          <a href="https://meauxbility.org/pages/data-sharing-opt-out">Privacy Policy</a>
+          <span aria-hidden="true" style="color:rgba(255,255,255,0.3);">•</span>
+          <a href="https://meauxbility.org/pages/policies">Terms of Service</a>
+          <span aria-hidden="true" style="color:rgba(255,255,255,0.3);">•</span>
+          <a href="https://meauxbility.org/pages/accessibility">Accessibility</a>
+        </div>
+        <div class="mbx-footer-copyright">
+          © <span id="mbx-year"></span> Meauxbility. 501(c)(3) EIN: 33-4214907. All rights reserved.
+        </div>
+        <div
+          style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.15); text-align: center;">
+          <a href="https://inneranimalmedia.com" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:rgba(255,255,255,0.9);transition:all 0.3s ease;padding:8px 16px;border-radius:8px;"
+            onmouseover="this.style.color='rgba(255,255,255,1)';this.style.backgroundColor='rgba(255,255,255,0.1)'"
+            onmouseout="this.style.color='rgba(255,255,255,0.9)';this.style.backgroundColor='transparent'">
+            <img src="https://imagedelivery.net/g7wf09fCONpnidkRnR_5vw/a8fb97d3-75bf-4070-b40a-04834ed5c500/public"
+              alt="InnerAnimal Media - Digital Agency & Creative Studio" width="100" height="100"
+              style="opacity:1;transition:all 0.3s ease;display:block;filter:brightness(1) contrast(1);"
+              onmouseover="this.style.transform='scale(1.05)';this.style.filter='brightness(1.1) contrast(1.05)'"
+              onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(1) contrast(1)'">
+            <span style="font-weight:600;font-size:14px;letter-spacing:0.5px;">Built by InnerAnimal Media</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Stripe Donation Modal -->
+  <div class="mbx-modal-backdrop" id="mbxModalBackdrop" aria-hidden="true" role="dialog"
+    aria-labelledby="mbx-modal-title">
+    <div class="mbx-modal">
+      <div class="mbx-modal-header">
+        <div>
+          <h3 class="mbx-modal-title" id="mbx-modal-title">Support Meauxbility</h3>
+          <p class="mbx-modal-subtitle">Every dollar transforms lives</p>
+        </div>
+        <button class="mbx-modal-close" onclick="closeDonateModal()" aria-label="Close donation modal">&times;</button>
+      </div>
+      <div class="mbx-modal-body">
+        <div class="mbx-success-message" id="mbxSuccessMsg">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">✅</div>
+          <div style="font-weight:800;color:#fff;margin-bottom:0.25rem;">Thank You!</div>
+          <div style="color:rgba(255,255,255,0.9);font-size:0.875rem;">Your donation has been processed successfully.
+          </div>
+        </div>
+        <div class="mbx-donate-grid">
+          <div class="mbx-donate-options">
+            <h3 class="mbx-option-title">Choose Your Gift</h3>
+            <div class="mbx-frequency-toggle">
+              <button class="mbx-frequency-btn active" onclick="setMbxFrequency('one_time')">One Time</button>
+              <button class="mbx-frequency-btn" onclick="setMbxFrequency('monthly')">Monthly</button>
+            </div>
+            <div class="mbx-amount-grid">
+              <button class="mbx-amount-btn" onclick="selectMbxAmount(5)" data-amount="5">$5</button>
+              <button class="mbx-amount-btn" onclick="selectMbxAmount(10)" data-amount="10">$10</button>
+              <button class="mbx-amount-btn" onclick="selectMbxAmount(25)" data-amount="25">$25</button>
+              <button class="mbx-amount-btn" onclick="selectMbxAmount(50)" data-amount="50">$50</button>
+              <button class="mbx-amount-btn" onclick="selectMbxAmount(100)" data-amount="100">$100</button>
+              <button class="mbx-amount-btn custom-btn" onclick="focusCustomAmount()"
+                data-amount="custom">Custom</button>
+            </div>
+            <div class="mbx-custom-amount-wrapper">
+              <input type="number" class="mbx-custom-amount" id="mbxCustomAmount" placeholder="Enter your amount"
+                min="1" step="0.01" oninput="selectMbxCustom(this.value)" onfocus="handleCustomFocus()"
+                onblur="handleCustomBlur()">
+              <div class="mbx-amount-hint" id="mbxAmountHint">Enter any amount you'd like to donate</div>
+              <div class="mbx-error" id="mbxAmountErr"></div>
+            </div>
+            <div class="mbx-designation" style="margin-top:0.75rem;">
+              <select id="mbxDesignation"
+                style="width:100%;padding:0.75rem 2rem 0.75rem 0.75rem;background:rgba(26,74,82,0.3);border:1.5px solid rgba(74,171,184,0.3);border-radius:10px;color:#fff;font-size:0.875rem;cursor:pointer;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27%3E%3Cpath fill=%27%23fff%27 d=%27M6 8L2 4h8z%27/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 0.75rem center;font-family:'Inter',sans-serif;">
+                <option value="general">Where Most Needed</option>
+                <option value="donmichael" selected>DonMichael's Wheelchair</option>
+                <option value="recovery">Recovery Grant Program</option>
+                <option value="adaptive">Adaptive Athletes</option>
+                <option value="equipment">Equipment Fund</option>
+              </select>
+            </div>
+          </div>
+          <div class="mbx-donor-info">
+            <h3 class="mbx-option-title">Your Information</h3>
+            <div class="mbx-name-grid" style="display:grid;grid-template-columns:1fr 1fr;">
+              <div class="mbx-form-group">
+                <label
+                  style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">First
+                  Name</label>
+                <input type="text" class="mbx-form-input" id="mbxFirstName" required>
+                <div class="mbx-error" id="mbxFirstNameErr">Required</div>
+              </div>
+              <div class="mbx-form-group">
+                <label
+                  style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Last
+                  Name</label>
+                <input type="text" class="mbx-form-input" id="mbxLastName" required>
+                <div class="mbx-error" id="mbxLastNameErr">Required</div>
+              </div>
+            </div>
+            <div class="mbx-form-group">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Email</label>
+              <input type="email" class="mbx-form-input" id="mbxEmail" required>
+              <div class="mbx-error" id="mbxEmailErr">Valid email required</div>
+            </div>
+            <div class="mbx-form-group">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Card
+                Information</label>
+              <div id="mbx-card-element"
+                style="padding:0.75rem;background:rgba(26,74,82,0.3);border:1.5px solid rgba(74,171,184,0.3);border-radius:10px;transition:var(--footer-transition);">
+              </div>
+              <div class="mbx-error" id="mbxCardErr"></div>
+            </div>
+            <button class="mbx-donate-submit" onclick="processMbxDonation()">
+              <span class="mbx-submit-text">Complete Donation</span>
+              <div class="mbx-loading" id="mbxLoading">
+                <div class="mbx-spinner"></div>
+                <span>Processing...</span>
+              </div>
+            </button>
+            <div
+              style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.75rem;color:rgba(255,255,255,0.7);font-size:0.75rem;">
+              🔒 Secure & tax-deductible • EIN: 33-4214907
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Modal -->
+  <div class="mbx-modal-backdrop" id="mbxApplicationModalBackdrop" aria-hidden="true" role="dialog"
+    aria-labelledby="mbx-application-modal-title">
+    <div class="mbx-modal">
+      <div class="mbx-modal-header">
+        <div>
+          <h3 class="mbx-modal-title" id="mbx-application-modal-title">Apply for Support</h3>
+          <p class="mbx-modal-subtitle">We're here to help you on your recovery journey</p>
+        </div>
+        <button class="mbx-modal-close" onclick="closeApplicationModal()"
+          aria-label="Close application modal">&times;</button>
+      </div>
+      <div class="mbx-modal-body">
+        <div class="mbx-success-message" id="mbxApplicationSuccessMsg">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">✅</div>
+          <div style="font-weight:800;color:#fff;margin-bottom:0.25rem;">Application Submitted!</div>
+          <div style="color:rgba(255,255,255,0.9);font-size:0.875rem;">We'll review your application and get back to you
+            within 2-3 business days.</div>
+        </div>
+        <form id="mbxApplicationForm" onsubmit="processApplication(event)">
+          <div class="mbx-application-section">
+            <h4 class="mbx-section-title">Personal Information</h4>
+            <div class="mbx-name-grid" style="display:grid;grid-template-columns:1fr 1fr;">
+              <div class="mbx-form-group">
+                <label
+                  style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">First
+                  Name <span style="color:var(--modal-accent);">*</span></label>
+                <input type="text" class="mbx-form-input" id="mbxAppFirstName" required>
+                <div class="mbx-error" id="mbxAppFirstNameErr">Required</div>
+              </div>
+              <div class="mbx-form-group">
+                <label
+                  style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Last
+                  Name <span style="color:var(--modal-accent);">*</span></label>
+                <input type="text" class="mbx-form-input" id="mbxAppLastName" required>
+                <div class="mbx-error" id="mbxAppLastNameErr">Required</div>
+              </div>
+            </div>
+            <div class="mbx-form-group" style="margin-bottom:1rem;">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Email
+                <span style="color:var(--modal-accent);">*</span></label>
+              <input type="email" class="mbx-form-input" id="mbxAppEmail" required>
+              <div class="mbx-error" id="mbxAppEmailErr">Valid email required</div>
+            </div>
+            <div class="mbx-form-group" style="margin-bottom:1rem;">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Phone
+                Number <span style="color:var(--modal-accent);">*</span></label>
+              <input type="tel" class="mbx-form-input" id="mbxAppPhone" placeholder="(555) 123-4567" required>
+              <div class="mbx-error" id="mbxAppPhoneErr">Valid phone number required</div>
+            </div>
+          </div>
+          <div class="mbx-application-section" style="margin-top:2rem;">
+            <h4 class="mbx-section-title">About Your Situation</h4>
+            <div class="mbx-form-group" style="margin-bottom:1rem;">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Type
+                of Injury/Condition <span style="color:var(--modal-accent);">*</span></label>
+              <select class="mbx-form-input" id="mbxAppInjuryType" required
+                style="cursor:pointer;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27%3E%3Cpath fill=%27%23fff%27 d=%27M6 8L2 4h8z%27/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 0.75rem center;">
+                <option value="">Select one...</option>
+                <option value="spinal-cord-injury">Spinal Cord Injury</option>
+                <option value="friedreichs-ataxia">Friedreich's Ataxia</option>
+                <option value="multiple-sclerosis">Multiple Sclerosis</option>
+                <option value="cerebral-palsy">Cerebral Palsy</option>
+                <option value="amputation">Amputation</option>
+                <option value="other">Other Mobility Challenge</option>
+              </select>
+              <div class="mbx-error" id="mbxAppInjuryTypeErr">Please select an option</div>
+            </div>
+            <div class="mbx-form-group" style="margin-bottom:1rem;">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">What
+                type of support are you seeking? <span style="color:var(--modal-accent);">*</span></label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:0.5rem;">
+                <label
+                  style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.9);font-size:0.875rem;cursor:pointer;">
+                  <input type="checkbox" class="mbx-checkbox" name="mbxAppSupportType" value="equipment">
+                  <span>Equipment/Technology</span>
+                </label>
+                <label
+                  style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.9);font-size:0.875rem;cursor:pointer;">
+                  <input type="checkbox" class="mbx-checkbox" name="mbxAppSupportType" value="funding">
+                  <span>Funding/Grant</span>
+                </label>
+                <label
+                  style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.9);font-size:0.875rem;cursor:pointer;">
+                  <input type="checkbox" class="mbx-checkbox" name="mbxAppSupportType" value="mentorship">
+                  <span>Mentorship</span>
+                </label>
+                <label
+                  style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.9);font-size:0.875rem;cursor:pointer;">
+                  <input type="checkbox" class="mbx-checkbox" name="mbxAppSupportType" value="resources">
+                  <span>Resources/Information</span>
+                </label>
+              </div>
+              <div class="mbx-error" id="mbxAppSupportTypeErr">Please select at least one option</div>
+            </div>
+            <div class="mbx-form-group" style="margin-bottom:1rem;">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Tell
+                us about your situation <span style="color:var(--modal-accent);">*</span></label>
+              <textarea class="mbx-form-input" id="mbxAppSituation" rows="4"
+                placeholder="Please describe your current situation, needs, and how we can help..." required
+                style="resize:vertical;font-family:'Inter',sans-serif;"></textarea>
+              <div class="mbx-error" id="mbxAppSituationErr">Please provide details about your situation</div>
+            </div>
+          </div>
+          <button type="submit" class="mbx-donate-submit">
+            <span class="mbx-submit-text">Submit Application</span>
+            <div class="mbx-loading" id="mbxApplicationLoading">
+              <div class="mbx-spinner"></div>
+              <span>Submitting...</span>
+            </div>
+          </button>
+          <div
+            style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1.25rem;color:rgba(255,255,255,0.7);font-size:0.75rem;">
+            🔒 Your information is secure and confidential
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Join Our Community Modal -->
+  <div class="mbx-modal-backdrop" id="mbxJoinCommunityModalBackdrop" aria-hidden="true" role="dialog"
+    aria-labelledby="mbx-join-community-modal-title">
+    <div class="mbx-modal">
+      <div class="mbx-modal-header">
+        <div>
+          <h3 class="mbx-modal-title" id="mbx-join-community-modal-title">Join Our Community</h3>
+          <p class="mbx-modal-subtitle">Connect with us and stay informed</p>
+        </div>
+        <button class="mbx-modal-close" onclick="closeJoinCommunityModal()"
+          aria-label="Close join community modal">&times;</button>
+      </div>
+      <div class="mbx-modal-body">
+        <div class="mbx-success-message" id="mbxJoinCommunitySuccessMsg">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">✅</div>
+          <div style="font-weight:800;color:#fff;margin-bottom:0.25rem;">Thank You!</div>
+          <div style="color:rgba(255,255,255,0.9);font-size:0.875rem;">You've successfully joined our community. We'll
+            be in touch soon!</div>
+        </div>
+        <form id="mbxJoinCommunityForm" onsubmit="processJoinCommunity(event)">
+          <div class="mbx-join-section">
+            <h4 class="mbx-section-title">Contact Information</h4>
+            <div class="mbx-name-grid" style="display:grid;grid-template-columns:1fr 1fr;">
+              <div class="mbx-form-group">
+                <label
+                  style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">First
+                  Name <span style="color:var(--modal-accent);">*</span></label>
+                <input type="text" class="mbx-form-input" id="mbxJoinFirstName" required>
+                <div class="mbx-error" id="mbxJoinFirstNameErr">Required</div>
+              </div>
+              <div class="mbx-form-group">
+                <label
+                  style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Last
+                  Name <span style="color:var(--modal-accent);">*</span></label>
+                <input type="text" class="mbx-form-input" id="mbxJoinLastName" required>
+                <div class="mbx-error" id="mbxJoinLastNameErr">Required</div>
+              </div>
+            </div>
+            <div class="mbx-form-group" style="margin-bottom:1rem;">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Email
+                <span style="color:var(--modal-accent);">*</span></label>
+              <input type="email" class="mbx-form-input" id="mbxJoinEmail" required>
+              <div class="mbx-error" id="mbxJoinEmailErr">Valid email required</div>
+            </div>
+            <div class="mbx-form-group" style="margin-bottom:1rem;">
+              <label
+                style="display:block;color:rgba(255,255,255,0.9);margin-bottom:0.375rem;font-weight:600;font-size:0.875rem;">Phone
+                Number (Optional)</label>
+              <input type="tel" class="mbx-form-input" id="mbxJoinPhone" placeholder="(555) 123-4567">
+            </div>
+          </div>
+          <div class="mbx-join-section" style="margin-top:2rem;">
+            <h4 class="mbx-section-title">How would you like to connect?</h4>
+            <div style="display:grid;grid-template-columns:1fr;gap:0.75rem;margin-top:0.5rem;">
+              <label
+                style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.9);font-size:0.875rem;cursor:pointer;padding:0.75rem;background:rgba(26,74,82,0.2);border:1.5px solid rgba(74,171,184,0.2);border-radius:10px;transition:all 0.3s ease;">
+                <input type="checkbox" class="mbx-checkbox" name="mbxJoinInterest" value="newsletter">
+                <span>📧 Newsletter - Get updates on our impact and ways to help</span>
+              </label>
+              <label
+                style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.9);font-size:0.875rem;cursor:pointer;padding:0.75rem;background:rgba(26,74,82,0.2);border:1.5px solid rgba(74,171,184,0.2);border-radius:10px;transition:all 0.3s ease;">
+                <input type="checkbox" class="mbx-checkbox" name="mbxJoinInterest" value="sci-group">
+                <span>🤝 Spinal Cord Injury Support Group - Connect with others on similar journeys</span>
+              </label>
+              <label
+                style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.9);font-size:0.875rem;cursor:pointer;padding:0.75rem;background:rgba(26,74,82,0.2);border:1.5px solid rgba(74,171,184,0.2);border-radius:10px;transition:all 0.3s ease;">
+                <input type="checkbox" class="mbx-checkbox" name="mbxJoinInterest" value="events">
+                <span>📅 Upcoming Events - Be notified about community gatherings, fundraisers, and more</span>
+              </label>
+              <label
+                style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.9);font-size:0.875rem;cursor:pointer;padding:0.75rem;background:rgba(26,74,82,0.2);border:1.5px solid rgba(74,171,184,0.2);border-radius:10px;transition:all 0.3s ease;">
+                <input type="checkbox" class="mbx-checkbox" name="mbxJoinInterest" value="volunteer">
+                <span>💪 Volunteer Opportunities - Help us make a difference</span>
+              </label>
+            </div>
+            <div class="mbx-error" id="mbxJoinInterestErr">Please select at least one option</div>
+          </div>
+          <div class="mbx-join-section" style="margin-top:2rem;">
+            <h4 class="mbx-section-title">Tell us about yourself (Optional)</h4>
+            <div class="mbx-form-group" style="margin-bottom:1rem;">
+              <textarea class="mbx-form-input" id="mbxJoinMessage" rows="4"
+                placeholder="Share your story, interests, or how you'd like to get involved..."
+                style="resize:vertical;font-family:'Inter',sans-serif;"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="mbx-join-submit">
+            <span class="mbx-submit-text">Join Our Community</span>
+            <div class="mbx-loading" id="mbxJoinCommunityLoading">
+              <div class="mbx-spinner"></div>
+              <span>Submitting...</span>
+            </div>
+          </button>
+          <div
+            style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1.25rem;color:rgba(255,255,255,0.7);font-size:0.75rem;">
+            🔒 Your information is secure and will only be used to keep you informed
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script nonce="MzAzMDYzODE2NCwxNzkzMDc0MDk1">
+    (() => {
+      // Animation Observer
+      const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+      const animateObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const delay = entry.target.dataset.delay || 0;
+            setTimeout(() => {
+              entry.target.classList.add('meauxxxInView');
+            }, delay);
+            animateObserver.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      document.querySelectorAll('[data-animate]').forEach(el => {
+        animateObserver.observe(el);
+      });
+
+      // Icon Morph Function
+      window.morphIcon = function (element) {
+        element.classList.toggle('morphed');
+      };
+
+      // Hero Image Scale on Scroll
+      const heroImg = document.getElementById('meauxxxHeroImg');
+      let ticking = false;
+      function updateImageScale() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const scrollProgress = Math.min(Math.max(scrollY / windowHeight, 0), 1);
+        const scale = 1.1 - (scrollProgress * 0.1);
+        if (heroImg) {
+          heroImg.style.transform = 'scale(' + scale + ')';
+        }
+        ticking = false;
+      }
+      function requestTick() {
+        if (!ticking) {
+          window.requestAnimationFrame(updateImageScale);
+          ticking = true;
+        }
+      }
+      if (heroImg) {
+        window.addEventListener('scroll', requestTick, { passive: true });
+        updateImageScale();
+      }
+
+      // Movement Image Scale on Scroll
+      const movementImage = document.getElementById('meauxxxMovementImage');
+      if (movementImage) {
+        const movementObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              movementImage.classList.add('meauxxxScaled');
+            } else {
+              movementImage.classList.remove('meauxxxScaled');
+            }
+          });
+        }, { threshold: 0.5 });
+        movementObserver.observe(movementImage);
+      }
+
+      // Partners Animation
+      const partnersGrid = document.getElementById('partnersGrid');
+      if (partnersGrid) {
+        const logos = Array.from(partnersGrid.querySelectorAll('.logo'));
+        const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!reduceMotion) {
+          const partnerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                partnerObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+          logos.forEach(logo => partnerObserver.observe(logo));
+        } else {
+          logos.forEach(logo => logo.classList.add('visible'));
+        }
+      }
+
+      // Donation Modal Functions
+      let mbxAmount = 0; // Start with 0, default to custom
+      let mbxFrequency = 'one_time';
+      let mbxStripe = null;
+      let mbxCard = null;
+      let isCustomAmount = true; // Default to custom
+
+      // Stripe initialization moved to openDonateModal for lazy loading (saves 206.8 KiB on initial load)
+
+      window.openDonateModal = function (preset) {
+        // Lazy load Stripe.js when donation modal opens (saves 206.8 KiB)
+        if (window.loadStripe) {
+          window.loadStripe();
+        }
+        const backdrop = document.getElementById('mbxModalBackdrop');
+        const designation = document.getElementById('mbxDesignation');
+        if (preset === 'donmichael' && designation) {
+          designation.value = 'donmichael';
+        }
+        // Initialize Stripe card element when Stripe loads
+        const initStripeCard = async () => {
+          if (typeof Stripe === 'undefined') {
+            console.log('Waiting for Stripe.js to load...');
+            return;
+          }
+
+          // Fetch Stripe key from server
+          if (!mbxStripe) {
+            try {
+              const configRes = await fetch('/api/donations/config');
+              if (configRes.ok) {
+                const config = await configRes.json();
+                if (config.publishableKey) {
+                  mbxStripe = Stripe(config.publishableKey);
+                  console.log('Stripe initialized successfully');
+                } else {
+                  throw new Error('Publishable key not in config');
+                }
+              } else {
+                throw new Error('Failed to fetch config: ' + configRes.status);
+              }
+            } catch (err) {
+              console.error('Failed to load Stripe config:', err);
+              const cardErr = document.getElementById('mbxCardErr');
+              if (cardErr) {
+                cardErr.textContent = 'Payment system not configured. Please contact support.';
+                cardErr.classList.add('show');
+              }
+              return;
+            }
+          }
+
+          const cardElement = document.getElementById('mbx-card-element');
+          if (!cardElement) {
+            console.error('Card element container not found');
+            return;
+          }
+
+          // Clear any existing content
+          cardElement.innerHTML = '';
+
+          // Create Stripe Elements
+          const elements = mbxStripe.elements({
+            appearance: {
+              theme: 'night',
+              variables: {
+                colorPrimary: '#FF6B35',
+                colorBackground: '#051B1E',
+                colorText: '#ffffff',
+                colorDanger: '#ff6b6b',
+                fontFamily: 'Inter, sans-serif',
+                spacingUnit: '4px',
+                borderRadius: '8px',
+              },
+            },
+          });
+
+          // Create and mount card element
+          mbxCard = elements.create('card', {
+            style: {
+              base: {
+                fontSize: '16px',
+                color: '#fff',
+                fontFamily: 'Inter, sans-serif',
+                '::placeholder': { color: 'rgba(255,255,255,0.5)' },
+              },
+              invalid: { color: '#ff6b6b' },
+            },
+          });
+
+          try {
+            mbxCard.mount('#mbx-card-element');
+            console.log('Stripe card element mounted successfully');
+
+            // Handle card element changes
+            mbxCard.on('change', (event) => {
+              const errorElement = document.getElementById('mbxCardErr');
+              if (errorElement) {
+                if (event.error) {
+                  errorElement.textContent = event.error.message;
+                  errorElement.classList.add('show');
+                } else {
+                  errorElement.textContent = '';
+                  errorElement.classList.remove('show');
+                }
+              }
+            });
+          } catch (error) {
+            console.error('Error mounting Stripe card element:', error);
+            const cardErr = document.getElementById('mbxCardErr');
+            if (cardErr) {
+              cardErr.textContent = 'Failed to initialize payment form. Please refresh.';
+              cardErr.classList.add('show');
+            }
+          }
+        };
+
+        // Wait for Stripe.js to load, then initialize
+        const waitForStripe = async () => {
+          if (typeof Stripe !== 'undefined') {
+            await initStripeCard();
+          } else {
+            const checkStripe = setInterval(async () => {
+              if (typeof Stripe !== 'undefined') {
+                clearInterval(checkStripe);
+                await initStripeCard();
+              }
+            }, 100);
+            setTimeout(() => {
+              clearInterval(checkStripe);
+              if (typeof Stripe === 'undefined') {
+                console.error('Stripe.js failed to load');
+                const cardErr = document.getElementById('mbxCardErr');
+                if (cardErr) {
+                  cardErr.textContent = 'Payment system loading. Please refresh.';
+                  cardErr.classList.add('show');
+                }
+              }
+            }, 10000);
+          }
+        };
+        waitForStripe();
+        backdrop.classList.add('active');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        // Focus custom amount input by default
+        setTimeout(() => {
+          const customInput = document.getElementById('mbxCustomAmount');
+          if (customInput) {
+            customInput.focus();
+            const customBtn = document.querySelector('.mbx-amount-btn.custom-btn');
+            if (customBtn) customBtn.classList.add('selected');
+            const hint = document.getElementById('mbxAmountHint');
+            if (hint) hint.classList.add('show');
+          }
+        }, 300);
+      };
+
+      window.closeDonateModal = function () {
+        const backdrop = document.getElementById('mbxModalBackdrop');
+        backdrop.classList.remove('active');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        document.getElementById('mbxSuccessMsg').classList.remove('show');
+        document.querySelectorAll('.mbx-form-input').forEach(input => input.value = '');
+        document.querySelectorAll('.mbx-error').forEach(error => error.classList.remove('show'));
+        if (mbxCard) mbxCard.clear();
+      };
+
+      window.selectMbxAmount = function (amt) {
+        mbxAmount = amt;
+        isCustomAmount = false;
+        document.querySelectorAll('.mbx-amount-btn').forEach(btn => btn.classList.remove('selected'));
+        const clickedBtn = event && event.target ? event.target : document.querySelector(`[data-amount="${amt}"]`);
+        if (clickedBtn) clickedBtn.classList.add('selected');
+        const customInput = document.getElementById('mbxCustomAmount');
+        if (customInput) {
+          customInput.value = '';
+          customInput.classList.remove('has-value');
+        }
+        const amountErr = document.getElementById('mbxAmountErr');
+        if (amountErr) amountErr.classList.remove('show');
+        const hint = document.getElementById('mbxAmountHint');
+        if (hint) hint.classList.remove('show');
+      };
+
+      window.selectMbxCustom = function (val) {
+        const numVal = parseFloat(val);
+        if (val && val.trim() !== '' && !isNaN(numVal) && numVal > 0) {
+          mbxAmount = numVal;
+          isCustomAmount = true;
+          document.querySelectorAll('.mbx-amount-btn').forEach(btn => btn.classList.remove('selected'));
+          const customInput = document.getElementById('mbxCustomAmount');
+          if (customInput) customInput.classList.add('has-value');
+          const amountErr = document.getElementById('mbxAmountErr');
+          if (amountErr) amountErr.classList.remove('show');
+          const hint = document.getElementById('mbxAmountHint');
+          if (hint) hint.classList.add('show');
+        } else if (val && val.trim() !== '') {
+          // Invalid amount
+          const amountErr = document.getElementById('mbxAmountErr');
+          if (amountErr) {
+            amountErr.textContent = 'Please enter a valid amount (minimum $1)';
+            amountErr.classList.add('show');
+          }
+        } else {
+          mbxAmount = 0;
+          isCustomAmount = true;
+          const customInput = document.getElementById('mbxCustomAmount');
+          if (customInput) customInput.classList.remove('has-value');
+          const amountErr = document.getElementById('mbxAmountErr');
+          if (amountErr) amountErr.classList.remove('show');
+        }
+      };
+
+      window.focusCustomAmount = function () {
+        const customInput = document.getElementById('mbxCustomAmount');
+        if (customInput) {
+          customInput.focus();
+          customInput.select();
+          document.querySelectorAll('.mbx-amount-btn').forEach(btn => btn.classList.remove('selected'));
+          const customBtn = document.querySelector('.mbx-amount-btn.custom-btn');
+          if (customBtn) customBtn.classList.add('selected');
+        }
+      };
+
+      window.handleCustomFocus = function () {
+        document.querySelectorAll('.mbx-amount-btn').forEach(btn => btn.classList.remove('selected'));
+        const customBtn = document.querySelector('.mbx-amount-btn.custom-btn');
+        if (customBtn) customBtn.classList.add('selected');
+        const hint = document.getElementById('mbxAmountHint');
+        if (hint) hint.classList.add('show');
+      };
+
+      window.handleCustomBlur = function () {
+        const customInput = document.getElementById('mbxCustomAmount');
+        if (customInput && !customInput.value) {
+          const customBtn = document.querySelector('.mbx-amount-btn.custom-btn');
+          if (customBtn) customBtn.classList.remove('selected');
+        }
+      };
+
+      window.setMbxFrequency = function (type) {
+        mbxFrequency = type;
+        document.querySelectorAll('.mbx-frequency-btn').forEach(btn => btn.classList.remove('active'));
+        if (event && event.target) event.target.classList.add('active');
+      };
+
+      window.processMbxDonation = async function () {
+        let valid = true;
+
+        // Validate amount
+        if (!mbxAmount || mbxAmount <= 0) {
+          const amountErr = document.getElementById('mbxAmountErr');
+          if (amountErr) {
+            amountErr.textContent = 'Please select or enter a donation amount (minimum $1)';
+            amountErr.classList.add('show');
+          }
+          valid = false;
+        } else if (mbxAmount < 1) {
+          const amountErr = document.getElementById('mbxAmountErr');
+          if (amountErr) {
+            amountErr.textContent = 'Minimum donation amount is $1';
+            amountErr.classList.add('show');
+          }
+          valid = false;
+        } else {
+          const amountErr = document.getElementById('mbxAmountErr');
+          if (amountErr) amountErr.classList.remove('show');
+        }
+
+        // Validate other fields
+        ['mbxFirstName', 'mbxLastName', 'mbxEmail'].forEach(id => {
+          const field = document.getElementById(id);
+          const error = document.getElementById(id + 'Err');
+          if (!field.value.trim()) {
+            error.classList.add('show');
+            valid = false;
+          } else {
+            error.classList.remove('show');
+          }
+        });
+
+        // Validate email format
+        const emailField = document.getElementById('mbxEmail');
+        const emailErr = document.getElementById('mbxEmailErr');
+        if (emailField && emailField.value.trim()) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(emailField.value.trim())) {
+            if (emailErr) {
+              emailErr.textContent = 'Please enter a valid email address';
+              emailErr.classList.add('show');
+            }
+            valid = false;
+          }
+        }
+        const email = document.getElementById('mbxEmail');
+        if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+          document.getElementById('mbxEmailErr').classList.add('show');
+          valid = false;
+        }
+        if (!valid) return;
+        const button = document.querySelector('.mbx-donate-submit');
+        const text = document.querySelector('.mbx-submit-text');
+        const loading = document.getElementById('mbxLoading');
+        button.disabled = true;
+        text.style.display = 'none';
+        loading.classList.add('active');
+        try {
+          const fund = document.getElementById('mbxDesignation').value || 'general';
+          const firstName = document.getElementById('mbxFirstName').value;
+          const lastName = document.getElementById('mbxLastName').value;
+          const email = document.getElementById('mbxEmail').value;
+
+          const response = await fetch('/api/donations/create-payment-intent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fund: fund,
+              frequency: mbxFrequency,
+              amount: mbxAmount * 100, // Convert to cents
+              firstName: firstName,
+              lastName: lastName,
+              email: email
+            })
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || 'Failed to create payment intent');
+          }
+
+          const { clientSecret } = await response.json();
+          if (!clientSecret) {
+            throw new Error('No client secret received');
+          }
+
+          const { error, paymentIntent } = await mbxStripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: mbxCard,
+              billing_details: {
+                name: firstName + ' ' + lastName,
+                email: email
+              }
+            }
+          });
+
+          if (error) throw new Error(error.message);
+          if (paymentIntent.status === 'succeeded') {
+            document.getElementById('mbxSuccessMsg').classList.add('show');
+
+            // Update progress if donmichael fund
+            if (fund === 'donmichael') {
+              const current = parseInt(localStorage.getItem('donmichael_meauxxx') || '0');
+              localStorage.setItem('donmichael_meauxxx', String(current + mbxAmount));
+              window.dispatchEvent(new CustomEvent('donation-complete', {
+                detail: { fund: 'donmichael', amount: mbxAmount }
+              }));
+            }
+
+            setTimeout(() => closeDonateModal(), 3000);
+          } else {
+            throw new Error('Payment not completed');
+          }
+        } catch (error) {
+          alert('Payment failed: ' + (error.message || 'Unknown error'));
+        } finally {
+          button.disabled = false;
+          text.style.display = 'inline';
+          loading.classList.remove('active');
+        }
+      };
+
+      // Application Modal Functions
+      window.openApplicationModal = function () {
+        const backdrop = document.getElementById('mbxApplicationModalBackdrop');
+        backdrop.classList.add('active');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeApplicationModal = function () {
+        const backdrop = document.getElementById('mbxApplicationModalBackdrop');
+        backdrop.classList.remove('active');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        document.getElementById('mbxApplicationSuccessMsg').classList.remove('show');
+        const form = document.getElementById('mbxApplicationForm');
+        if (form) {
+          form.style.display = 'block';
+          form.reset();
+        }
+        document.querySelectorAll('#mbxApplicationForm .mbx-error').forEach(error => error.classList.remove('show'));
+      };
+
+      window.processApplication = async function (e) {
+        e.preventDefault();
+        let valid = true;
+        const firstName = document.getElementById('mbxAppFirstName');
+        const lastName = document.getElementById('mbxAppLastName');
+        const email = document.getElementById('mbxAppEmail');
+        const phone = document.getElementById('mbxAppPhone');
+        const injuryType = document.getElementById('mbxAppInjuryType');
+        const supportTypes = document.querySelectorAll('input[name="mbxAppSupportType"]:checked');
+        const situation = document.getElementById('mbxAppSituation');
+        document.querySelectorAll('#mbxApplicationForm .mbx-error').forEach(error => error.classList.remove('show'));
+        if (!firstName.value.trim()) { document.getElementById('mbxAppFirstNameErr').classList.add('show'); valid = false; }
+        if (!lastName.value.trim()) { document.getElementById('mbxAppLastNameErr').classList.add('show'); valid = false; }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim() || !emailRegex.test(email.value)) { document.getElementById('mbxAppEmailErr').classList.add('show'); valid = false; }
+        const phoneRegex = /^[\d\s\-\(\)]+$/;
+        if (!phone.value.trim() || !phoneRegex.test(phone.value.replace(/\s/g, ''))) { document.getElementById('mbxAppPhoneErr').classList.add('show'); valid = false; }
+        if (!injuryType.value) { document.getElementById('mbxAppInjuryTypeErr').classList.add('show'); valid = false; }
+        if (supportTypes.length === 0) { document.getElementById('mbxAppSupportTypeErr').classList.add('show'); valid = false; }
+        if (!situation.value.trim() || situation.value.trim().length < 20) { document.getElementById('mbxAppSituationErr').classList.add('show'); valid = false; }
+        if (!valid) return;
+        const loading = document.getElementById('mbxApplicationLoading');
+        const submitText = document.querySelector('#mbxApplicationForm .mbx-submit-text');
+        loading.style.display = 'flex';
+        submitText.style.display = 'none';
+        const supportTypeValues = Array.from(supportTypes).map(cb => cb.value);
+        const formData = {
+          firstName: firstName.value.trim(),
+          lastName: lastName.value.trim(),
+          email: email.value.trim(),
+          phone: phone.value.trim(),
+          injuryType: injuryType.value,
+          supportTypes: supportTypeValues,
+          situation: situation.value.trim(),
+          submittedAt: new Date().toISOString()
+        };
+        try {
+          console.log('Application submission:', formData);
+          // Simulate API call - Replace with actual Cloudflare Worker endpoint
+          const response = { ok: true };
+          if (response.ok) {
+            document.getElementById('mbxApplicationForm').style.display = 'none';
+            document.getElementById('mbxApplicationSuccessMsg').classList.add('show');
+            setTimeout(() => closeApplicationModal(), 4000);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          console.error('Application submission error:', error);
+          alert('There was an error submitting your application. Please try again or contact us directly at support@meauxbility.org');
+          loading.style.display = 'none';
+          submitText.style.display = 'block';
+        }
+      };
+
+      // Join Community Modal Functions
+      window.openJoinCommunityModal = function () {
+        const backdrop = document.getElementById('mbxJoinCommunityModalBackdrop');
+        backdrop.classList.add('active');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeJoinCommunityModal = function () {
+        const backdrop = document.getElementById('mbxJoinCommunityModalBackdrop');
+        backdrop.classList.remove('active');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        document.getElementById('mbxJoinCommunitySuccessMsg').classList.remove('show');
+        const form = document.getElementById('mbxJoinCommunityForm');
+        if (form) {
+          form.style.display = 'block';
+          form.reset();
+        }
+        document.querySelectorAll('#mbxJoinCommunityForm .mbx-error').forEach(error => error.classList.remove('show'));
+      };
+
+      window.processJoinCommunity = async function (e) {
+        e.preventDefault();
+        let valid = true;
+        const firstName = document.getElementById('mbxJoinFirstName');
+        const lastName = document.getElementById('mbxJoinLastName');
+        const email = document.getElementById('mbxJoinEmail');
+        const phone = document.getElementById('mbxJoinPhone');
+        const interests = document.querySelectorAll('input[name="mbxJoinInterest"]:checked');
+        const message = document.getElementById('mbxJoinMessage');
+        document.querySelectorAll('#mbxJoinCommunityForm .mbx-error').forEach(error => error.classList.remove('show'));
+        if (!firstName.value.trim()) { document.getElementById('mbxJoinFirstNameErr').classList.add('show'); valid = false; }
+        if (!lastName.value.trim()) { document.getElementById('mbxJoinLastNameErr').classList.add('show'); valid = false; }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim() || !emailRegex.test(email.value)) { document.getElementById('mbxJoinEmailErr').classList.add('show'); valid = false; }
+        if (interests.length === 0) { document.getElementById('mbxJoinInterestErr').classList.add('show'); valid = false; }
+        if (!valid) return;
+        const loading = document.getElementById('mbxJoinCommunityLoading');
+        const submitText = document.querySelector('#mbxJoinCommunityForm .mbx-submit-text');
+        loading.style.display = 'flex';
+        submitText.style.display = 'none';
+        const interestValues = Array.from(interests).map(cb => cb.value);
+        const formData = {
+          firstName: firstName.value.trim(),
+          lastName: lastName.value.trim(),
+          email: email.value.trim(),
+          phone: phone.value.trim() || null,
+          interests: interestValues,
+          message: message.value.trim() || null,
+          submittedAt: new Date().toISOString()
+        };
+        try {
+          console.log('Join Community submission:', formData);
+          // Simulate API call - Replace with actual Cloudflare Worker endpoint
+          const response = { ok: true };
+          if (response.ok) {
+            document.getElementById('mbxJoinCommunityForm').style.display = 'none';
+            document.getElementById('mbxJoinCommunitySuccessMsg').classList.add('show');
+            setTimeout(() => closeJoinCommunityModal(), 4000);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          console.error('Join Community submission error:', error);
+          alert('There was an error submitting your information. Please try again or contact us directly at support@meauxbility.org');
+          loading.style.display = 'none';
+          submitText.style.display = 'block';
+        }
+      };
+
+      // Close modals on backdrop click
+      document.addEventListener('click', function (e) {
+        const backdrops = ['mbxModalBackdrop', 'mbxApplicationModalBackdrop', 'mbxJoinCommunityModalBackdrop'];
+        backdrops.forEach(id => {
+          const backdrop = document.getElementById(id);
+          if (backdrop && e.target === backdrop) {
+            if (id === 'mbxModalBackdrop') closeDonateModal();
+            else if (id === 'mbxApplicationModalBackdrop') closeApplicationModal();
+            else if (id === 'mbxJoinCommunityModalBackdrop') closeJoinCommunityModal();
+          }
+        });
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          const backdrops = ['mbxModalBackdrop', 'mbxApplicationModalBackdrop', 'mbxJoinCommunityModalBackdrop'];
+          backdrops.forEach(id => {
+            const backdrop = document.getElementById(id);
+            if (backdrop && backdrop.classList.contains('active')) {
+              if (id === 'mbxModalBackdrop') closeDonateModal();
+              else if (id === 'mbxApplicationModalBackdrop') closeApplicationModal();
+              else if (id === 'mbxJoinCommunityModalBackdrop') closeJoinCommunityModal();
+            }
+          });
+        }
+      });
+
+      // Enhanced Progress Bar with Real-time Updates
+      async function updateDonmichaelProgress() {
+        try {
+          // Try to fetch from API first
+          let currentAmount = 0;
+          try {
+            const response = await fetch('/api/donations/donmichael-total');
+            if (response.ok) {
+              const data = await response.json();
+              currentAmount = data.total || 0;
+            }
+          } catch (apiError) {
+            // Fallback to localStorage
+            currentAmount = parseInt(localStorage.getItem('donmichael_meauxxx') || '0');
+          }
+
+          const goal = 10000;
+          const percent = Math.min((currentAmount / goal) * 100, 100);
+          const progressBar = document.getElementById('meauxxxProgressBar');
+          const progressAmount = document.getElementById('meauxxxProgressAmount');
+
+          if (progressBar && progressAmount) {
+            // Animate progress bar
+            progressBar.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            progressBar.style.width = percent + '%';
+
+            // Format and update amount
+            const formatted = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            }).format(currentAmount);
+
+            progressAmount.textContent = formatted + ' raised';
+
+            // Pulse animation
+            progressAmount.style.transition = 'transform 0.3s ease';
+            progressAmount.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+              progressAmount.style.transform = 'scale(1)';
+            }, 300);
+          }
+        } catch (error) {
+          console.error('Error updating progress:', error);
+          // Fallback
+          const savedAmount = parseInt(localStorage.getItem('donmichael_meauxxx') || '0');
+          const percent = Math.min((savedAmount / 10000) * 100, 100);
+          const progressBar = document.getElementById('meauxxxProgressBar');
+          const progressAmount = document.getElementById('meauxxxProgressAmount');
+          if (progressBar && progressAmount) {
+            progressBar.style.width = percent + '%';
+            progressAmount.textContent = '$' + savedAmount.toLocaleString() + ' raised';
+          }
+        }
+      }
+
+      // Update on load
+      updateDonmichaelProgress();
+
+      // Poll every 30 seconds
+      setInterval(updateDonmichaelProgress, 30000);
+
+      // Listen for donation events
+      window.addEventListener('donation-complete', (event) => {
+        if (event.detail && event.detail.fund === 'donmichael') {
+          const current = parseInt(localStorage.getItem('donmichael_meauxxx') || '0');
+          localStorage.setItem('donmichael_meauxxx', String(current + event.detail.amount));
+          updateDonmichaelProgress();
+        }
+      });
+
+      // Footer Year
+      const yearElement = document.getElementById('mbx-year');
+      if (yearElement) yearElement.textContent = new Date().getFullYear();
+
+      // Newsletter Form
+      const newsletterForm = document.getElementById('mbx-newsletterForm');
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const email = this.querySelector('.mbx-newsletter-input').value;
+          console.log('Newsletter subscription:', email);
+          alert('Thank you for subscribing with ' + email + '!');
+          this.reset();
+        });
+      }
+    })();
+  </script>
+
+
+
+  <!-- Meauxbility Chatbot Toolbar -->
+  <div id="meaux-chatbot-toolbar" style="position:fixed;bottom:20px;right:20px;z-index:999999;">
+    <button id="meaux-chatbot-toggle"
+      style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FF6B35 0%,#E85D00 100%);border:2px solid rgba(255,255,255,0.2);box-shadow:0 4px 16px rgba(255,107,53,0.3);cursor:pointer;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;transition:all 0.3s;"
+      onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 20px rgba(255,107,53,0.4)'"
+      onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 16px rgba(255,107,53,0.3)'"
+      title="Chat with Meauxbility">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </button>
+    <div id="meaux-chatbot-panel"
+      style="position:absolute;bottom:70px;right:0;width:380px;max-height:600px;background:rgba(15,23,42,0.98);backdrop-filter:blur(20px);border:1px solid rgba(255,107,53,0.2);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.4);display:none;flex-direction:column;overflow:hidden;color:white;">
+      <div
+        style="padding:16px 20px;border-bottom:1px solid rgba(255,107,53,0.2);display:flex;align-items:center;justify-content:space-between;background:rgba(255,107,53,0.1);">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div
+            style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#FF6B35 0%,#E85D00 100%);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:white;">
+            💬</div>
+          <div>
+            <div style="font-weight:700;font-size:15px;">Meauxbility Chat</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);">Ask us anything</div>
+          </div>
+        </div>
+        <button id="meaux-chatbot-close"
+          style="width:28px;height:28px;border-radius:6px;background:rgba(255,255,255,0.1);border:none;color:white;cursor:pointer;font-size:18px;transition:background 0.2s;"
+          onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.1)'">×</button>
+      </div>
+      <div id="meaux-chatbot-messages"
+        style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:300px;max-height:400px;">
+        <div style="padding:12px;background:rgba(255,107,53,0.1);border-radius:8px;border-left:3px solid #FF6B35;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.9);line-height:1.5;">
+            👋 Hi! I'm here to help with questions about Meauxbility, spinal cord injury resources, adaptive equipment,
+            and more. How can I assist you today?
+          </div>
+        </div>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.2);">
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="meaux-chatbot-input" placeholder="Type your message..."
+            style="flex:1;padding:10px 14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:white;font-size:13px;outline:none;"
+            onkeypress="if(event.key==='Enter') meauxChatbotSend()">
+          <button onclick="meauxChatbotSend()"
+            style="padding:10px 16px;background:linear-gradient(135deg,#FF6B35 0%,#E85D00 100%);border:none;border-radius:8px;color:white;font-weight:600;cursor:pointer;font-size:13px;transition:transform 0.2s;"
+            onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script nonce="MzAzMDYzODE2NCwxNzkzMDc0MDk1">
+    (function () {
+      const toggle = document.getElementById('meaux-chatbot-toggle'),
+        panel = document.getElementById('meaux-chatbot-panel'),
+        close = document.getElementById('meaux-chatbot-close'),
+        input = document.getElementById('meaux-chatbot-input'),
+        messages = document.getElementById('meaux-chatbot-messages');
+      let open = false;
+
+      function toggleChatbot() {
+        open = !open;
+        panel.style.display = open ? 'flex' : 'none';
+        toggle.style.transform = open ? 'rotate(180deg) scale(1.1)' : 'rotate(0deg) scale(1)';
+        if (open && input) input.focus();
+      }
+
+      toggle?.addEventListener('click', toggleChatbot);
+      close?.addEventListener('click', () => { open = false; panel.style.display = 'none'; toggle.style.transform = 'rotate(0deg) scale(1)'; });
+
+      window.meauxChatbotSend = function () {
+        const msg = input?.value?.trim();
+        if (!msg) return;
+
+        // Add user message
+        const userMsg = document.createElement('div');
+        userMsg.style.cssText = 'padding:10px 12px;background:rgba(255,107,53,0.2);border-radius:8px;align-self:flex-end;max-width:80%;font-size:13px;color:white;';
+        userMsg.textContent = msg;
+        messages?.appendChild(userMsg);
+
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+
+        // Simulate bot response (replace with actual API call later)
+        setTimeout(() => {
+          const botMsg = document.createElement('div');
+          botMsg.style.cssText = 'padding:10px 12px;background:rgba(255,255,255,0.1);border-radius:8px;align-self:flex-start;max-width:80%;font-size:13px;color:white;';
+          botMsg.textContent = 'Thanks for your message! This chatbot will be connected to our AI assistant soon. For now, please visit our contact page or email us at info@meauxbility.org.';
+          messages?.appendChild(botMsg);
+          messages.scrollTop = messages.scrollHeight;
+        }, 500);
+      };
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (open && !panel?.contains(e.target) && !toggle?.contains(e.target)) {
+          open = false;
+          panel.style.display = 'none';
+          toggle.style.transform = 'rotate(0deg) scale(1)';
+        }
+      });
+    })();
+  </script>
+
+
 </body>
 
 </html>
