@@ -17,52 +17,45 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js (if needed)
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-        continue-on-error: true
 
-      - name: Install dependencies (if package.json exists)
+      - name: Build React App
         run: |
-          if [ -f "package.json" ]; then
+          if [ -d "meauxbility-react" ]; then
+            cd meauxbility-react
             npm ci || npm install
+            VITE_BASE_PATH= npm run build
+            cd ..
+            echo "✅ React app built"
           else
-            echo "No package.json found, deploying static files directly"
-          fi
-
-      - name: Build (if build script exists)
-        run: |
-          if [ -f "package.json" ] && npm run | grep -q "build"; then
-            npm run build
-            # If build outputs to dist, use that; otherwise use root
-            if [ -d "dist" ]; then
-              echo "Build output found in dist/"
-            else
-              echo "Build complete, using root directory"
-            fi
-          else
-            echo "No build script found, deploying static files from root"
-            # For static files, create dist with all necessary files
-            mkdir -p dist
-            # Copy HTML files
-            find . -maxdepth 1 -type f \( -name "*.html" -o -name "*.htm" \) -exec cp {} dist/ \;
-            # Copy assets directory if it exists
-            [ -d "assets" ] && cp -r assets dist/ || true
-            # Copy any other static files
-            [ -f ".nojekyll" ] && cp .nojekyll dist/ || true
-            [ -f "README.md" ] && cp README.md dist/ || true
-          fi
-          
-          # Copy functions directory to dist (Pages Functions need to be in root or dist)
-          if [ -d "functions" ]; then
-            echo "Copying Pages Functions..."
-            cp -r functions dist/ || true
-            echo "✅ Functions copied to dist/"
+            echo "⚠️  meauxbility-react directory not found"
           fi
         env:
           NODE_ENV: production
+
+      - name: Prepare Deployment
+        run: |
+          mkdir -p dist
+          # Copy React app build if it exists
+          if [ -d "meauxbility-react/dist" ]; then
+            cp -r meauxbility-react/dist/* dist/
+            echo "✅ React app copied to dist/"
+          fi
+          # Copy functions directory
+          if [ -d "functions" ]; then
+            cp -r functions dist/ || true
+            echo "✅ Functions copied to dist/"
+          fi
+          # Fallback: copy static files if no React build
+          if [ ! -f "dist/index.html" ]; then
+            echo "⚠️  No React build found, using static files"
+            find . -maxdepth 1 -type f \( -name "*.html" -o -name "*.htm" \) -exec cp {} dist/ \;
+            [ -d "assets" ] && cp -r assets dist/ || true
+          fi
 
       - name: Deploy to Cloudflare Pages with Wrangler
         uses: cloudflare/wrangler-action@v3.14.1
