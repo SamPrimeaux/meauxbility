@@ -1,0 +1,60 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (if needed)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+        continue-on-error: true
+
+      - name: Install dependencies (if package.json exists)
+        run: |
+          if [ -f "package.json" ]; then
+            npm ci || npm install
+          else
+            echo "No package.json found, deploying static files directly"
+          fi
+
+      - name: Build (if build script exists)
+        run: |
+          if [ -f "package.json" ] && npm run | grep -q "build"; then
+            npm run build
+          else
+            echo "No build script found, deploying static files from root"
+            # Create dist directory with all files if it doesn't exist
+            if [ ! -d "dist" ]; then
+              mkdir -p dist
+              # Copy all files except .git, node_modules, etc.
+              find . -maxdepth 1 -type f -not -name '.*' -exec cp {} dist/ \;
+              [ -d "assets" ] && cp -r assets dist/ || true
+            fi
+          fi
+        env:
+          NODE_ENV: production
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_KEY }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: meauxbility-dev
+          directory: ${{ (github.event_name == 'pull_request' && 'dist') || 'dist' }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: '3'
