@@ -54,6 +54,13 @@ jobs:
             [ -f ".nojekyll" ] && cp .nojekyll dist/ || true
             [ -f "README.md" ] && cp README.md dist/ || true
           fi
+          
+          # Copy functions directory to dist (Pages Functions need to be in root or dist)
+          if [ -d "functions" ]; then
+            echo "Copying Pages Functions..."
+            cp -r functions dist/ || true
+            echo "✅ Functions copied to dist/"
+          fi
         env:
           NODE_ENV: production
 
