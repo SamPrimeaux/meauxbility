@@ -4,3 +4,10 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# Node.js dependencies
+node_modules/
+
+# Build artifacts
+dist/
+meauxbility-react/dist/
