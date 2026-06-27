@@ -86,6 +86,17 @@ def rewrite_for_cloudflare(html: str) -> str:
     html = html.replace('/meauxbility/assets/', '/assets/')
     html = html.replace('href="/meauxbility/"', 'href="/"')
     html = html.replace('src="/vite.svg"', 'src="/vite.svg"')
+
+    # The recovered GitHub Pages bundle calls gtag from performance observers.
+    # Cloudflare may not have the GA snippet loaded yet, so define a safe queueing stub
+    # before any app/module scripts execute. This prevents ReferenceError crashes while
+    # preserving normal gtag behavior if Google Analytics is added later.
+    gtag_stub = '''<script>
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+</script>'''
+    if 'window.gtag = window.gtag' not in html:
+        html = html.replace('</head>', gtag_stub + '\n</head>', 1)
     return html
 
 
