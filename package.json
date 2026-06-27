@@ -1,0 +1,14 @@
+{
+  "name": "meauxbility",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"Meauxbility static Worker build ready\"",
+    "deploy": "wrangler deploy",
+    "version:upload": "wrangler versions upload"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
