@@ -1,12 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "meauxbility",
+  "main": "src/index.js",
   "compatibility_date": "2026-01-20",
   "compatibility_flags": [
     "nodejs_compat"
   ],
   "assets": {
-    "directory": "public"
+    "directory": "public",
+    "binding": "ASSETS"
   },
   "routes": [
     {
@@ -18,12 +20,21 @@
       "zone_name": "meauxbility.org"
     },
     {
+      "pattern": "admin.meauxbility.org/*",
+      "zone_name": "meauxbility.org"
+    },
+    {
       "pattern": "meauxbility.org",
       "zone_name": "meauxbility.org",
       "custom_domain": true
     },
     {
       "pattern": "www.meauxbility.org",
+      "zone_name": "meauxbility.org",
+      "custom_domain": true
+    },
+    {
+      "pattern": "admin.meauxbility.org",
       "zone_name": "meauxbility.org",
       "custom_domain": true
     }
@@ -46,11 +57,11 @@
   "r2_buckets": [
     {
       "binding": "ASSETS_BUCKET",
-      "bucket_name": "meauxbilityorgfinal"
+      "bucket_name": "meauxbilityv2"
     },
     {
       "binding": "WEBSITE_ASSETS",
-      "bucket_name": "meauxbilityorgfinal"
+      "bucket_name": "meauxbilityv2"
     },
     {
       "binding": "INFRASTRUCTURE_BUCKET",
@@ -91,17 +102,22 @@
     }
   ],
   "observability": {
-    "enabled": false,
+    "enabled": true,
     "logs": {
-      "enabled": false
+      "enabled": true
     }
   },
+  "workers_dev": true,
+  "preview_urls": true,
   "migrations": [
     {
       "tag": "v1",
       "new_sqlite_classes": [
         "MEAUXSession"
       ]
+    },
+    {
+      "tag": "v2"
     }
   ]
 }

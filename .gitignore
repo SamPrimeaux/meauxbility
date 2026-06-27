@@ -10,4 +10,5 @@ node_modules/
 
 # Build artifacts
 dist/
+public/
 meauxbility-react/dist/
