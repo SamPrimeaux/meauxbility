@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "echo \"Meauxbility static Worker build ready\"",
+    "build": "rm -rf public && mkdir -p public && cp index.html public/index.html",
     "deploy": "wrangler deploy",
     "version:upload": "wrangler versions upload"
   },
