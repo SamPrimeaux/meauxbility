@@ -1,14 +1,99 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "meauxbility",
-  "compatibility_date": "2025-09-27",
-  "observability": {
-    "enabled": true
-  },
+  "compatibility_date": "2026-01-20",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "assets": {
     "directory": "public"
   },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+  "routes": [
+    {
+      "pattern": "meauxbility.org/*",
+      "zone_name": "meauxbility.org"
+    },
+    {
+      "pattern": "www.meauxbility.org/*",
+      "zone_name": "meauxbility.org"
+    },
+    {
+      "pattern": "meauxbility.org",
+      "zone_name": "meauxbility.org",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.meauxbility.org",
+      "zone_name": "meauxbility.org",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "production",
+    "CLOUDFLARE_ACCOUNT_ID": "ede6590ac0d2fb7daf155b35653457b2",
+    "GOOGLE_OAUTH_CLIENT_ID": "634107060822-3248ok0pgcp32df435p2pt7f3g33ap5v.apps.googleusercontent.com",
+    "R2_PUBLIC_URL": "https://pub-b2c86021de114066bc2eefa2e0ee3250.r2.dev",
+    "R2_S3_ENDPOINT": "https://ede6590ac0d2fb7daf155b35653457b2.r2.cloudflarestorage.com",
+    "REALTIME_SFU_APP_ID": "a5f1a5ac6f6e9d8e93b5aa4493448d64"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "meauxbilityorg",
+      "database_id": "011d1629-b5c8-49e7-8f6d-ca311ba936fe"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "ASSETS_BUCKET",
+      "bucket_name": "meauxbilityorgfinal"
+    },
+    {
+      "binding": "WEBSITE_ASSETS",
+      "bucket_name": "meauxbilityorgfinal"
+    },
+    {
+      "binding": "INFRASTRUCTURE_BUCKET",
+      "bucket_name": "allinfrastructure"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "38d3dbd415f148008aec823bd1b245bb"
+    },
+    {
+      "binding": "REALTIME_KV",
+      "id": "b65efed6ef434f5f9ffd77e130ddaf58"
+    },
+    {
+      "binding": "SESSIONS",
+      "id": "dc87920b0a9247979a213c09df9a0234"
+    }
+  ],
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "9108dd6499bb44c286e4eb298c6ffafb"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SESSION_DO",
+        "class_name": "MEAUXSession"
+      }
+    ]
+  },
+  "tail_consumers": [
+    {
+      "service": "inneranimalmedia-tail"
+    }
+  ],
+  "observability": {
+    "enabled": false,
+    "logs": {
+      "enabled": false
+    }
+  }
 }
